@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     const payload = await getPayload({ config })
 
-    // Get the quiz with all details including points
+    // Get the quiz with points and questions
     const quiz = await payload.findByID({
       collection: 'quizzes',
       id: quizId,
@@ -34,46 +34,83 @@ export async function POST(req: NextRequest) {
     }
 
     if (answers.length !== quiz.questions.length) {
-      return NextResponse.json({ error: 'Answers length mismatch' }, { status: 400 })
+      return NextResponse.json({ error: 'All questions must be answered' }, { status: 400 })
     }
 
-    // ✅ Give full points regardless of correctness
-    const pointsEarned = quiz.points || 10
-    const totalQuestions = quiz.questions.length
-
+    // Get current member with their completion history
     const member = await payload.findByID({
       collection: 'members',
       id: memberId,
+      depth: 2,
     })
 
     if (!member) {
       return NextResponse.json({ error: 'Member not found' }, { status: 404 })
     }
 
-    // Update member in a single operation
+    // Check if quiz already completed to prevent duplicate points
+    const existingAttempt = (member.completedQuizIds || []).find(
+      (attempt: any) => attempt.quizId === quizId
+    )
+
+    if (existingAttempt) {
+      return NextResponse.json(
+        {
+          error: 'Quiz already completed',
+          result: {
+            score: existingAttempt.score,
+            total: quiz.questions.length,
+            pointsEarned: 0, // No new points for duplicate attempts
+          },
+        },
+        { status: 409 }
+      )
+    }
+
+    // Calculate points and update member
+    const pointsEarned = quiz.points || 10 // Default to 10 points if not specified
+    const totalQuestions = quiz.questions.length
+
+    // Prepare the update data with proper completion tracking
+    const updateData = {
+      // Add points to wallet
+      wallet: (member.wallet || 0) + pointsEarned,
+
+      // Track completed blog if not already completed
+      completedBlogs: member.completedBlogs?.some((item: any) => item.blog?.id === blogId)
+        ? member.completedBlogs
+        : [
+            ...(member.completedBlogs || []),
+            {
+              blog: blogId,
+              score: pointsEarned,
+              completedAt: new Date().toISOString(),
+            },
+          ],
+
+      // Add completed quiz record
+      completedQuizIds: [
+        ...(member.completedQuizIds || []).filter((item: any) => item.quizId !== quizId),
+        {
+          quizId,
+          score: pointsEarned,
+          completedAt: new Date().toISOString(),
+        },
+      ],
+    }
+
     const updatedMember = await payload.update({
       collection: 'members',
       id: memberId,
-      data: {
-        wallet: (member.wallet || 0) + pointsEarned,
-        completedBlogs: [
-          ...(member.completedBlogs || []),
-          {
-            blog: blogId,
-            score: pointsEarned,
-            completedAt: new Date().toISOString(),
-          },
-        ],
-        completedQuizIds: [
-          ...(member.completedQuizIds || []).filter((item: any) => item.quizId !== quizId),
-          { quizId, score: pointsEarned, completedAt: new Date().toISOString() },
-        ],
-      } as any,
+      data: updateData,
     })
+
+    // Log the completion for monitoring
+    console.log(`Quiz ${quizId} completed by member ${memberId} - Points earned: ${pointsEarned}`)
 
     return NextResponse.json({
       result: {
-        score: totalQuestions, // 👈 Show full score in UI
+        score: totalQuestions,
         total: totalQuestions,
         pointsEarned,
         member: updatedMember,

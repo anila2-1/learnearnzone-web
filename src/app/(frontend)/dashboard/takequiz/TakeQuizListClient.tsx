@@ -5,12 +5,17 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Sidebar from '@/components/Sidebar'
 import { useSidebar } from '../../SidebarContext'
+import { useAuth } from './../../../../_providers/Auth'
+import { useRouter } from 'next/navigation'
 
 export default function TakeQuizListClient() {
+  const { user } = useAuth()
+  const router = useRouter()
   const [articles, setArticles] = useState<any[]>([])
   const [categories, setCategories] = useState<{ id: string; name: string; slug: string }[]>([])
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
   const { sidebarOpen, setSidebarOpen } = useSidebar()
+  const [error, setError] = useState<string | null>(null)
 
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -73,8 +78,17 @@ export default function TakeQuizListClient() {
   useEffect(() => {
     const fetchAllBlogsWithQuizzes = async () => {
       setLoading(true)
+      setError(null)
+
       try {
-        const res = await fetch('/api/get-all-blogs-with-quizzes', {
+        if (!user?.id) {
+          setError('Please log in to view available quizzes')
+          setArticles([])
+          setLoading(false)
+          return
+        }
+
+        const response = await fetch('/api/get-all-blogs-with-quizzes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -82,11 +96,12 @@ export default function TakeQuizListClient() {
             categorySlug: selectedCategorySlug,
             page: currentPage,
             limit: itemsPerPage,
+            memberId: user.id,
           }),
         })
 
-        const data = await res.json()
-        if (res.ok) {
+        const data = await response.json()
+        if (response.ok) {
           setArticles(data.articles || [])
         } else {
           console.error('API Error:', data.error)
@@ -101,7 +116,7 @@ export default function TakeQuizListClient() {
     }
 
     fetchAllBlogsWithQuizzes()
-  }, [debouncedSearchTerm, selectedCategorySlug, currentPage])
+  }, [debouncedSearchTerm, selectedCategorySlug, currentPage, itemsPerPage, user?.id])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -114,6 +129,36 @@ export default function TakeQuizListClient() {
     document.addEventListener('click', handleClickOutside)
     return () => document.removeEventListener('click', handleClickOutside)
   }, [isCategoryOpen])
+
+  if (!user) {
+    return (
+      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+        <Sidebar />
+        <div className="flex-1 p-4 mt-10 sm:p-6 md:ml-64">
+          <div className="max-w-6xl mx-auto text-center py-12">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Please Log In</h2>
+            <p className="text-gray-600 mb-6">
+              You need to be logged in to view available quizzes.
+            </p>
+            <Link
+              href="/auth/login"
+              className="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors"
+            >
+              Go to Login
+              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (loading) {
     return (
@@ -152,6 +197,11 @@ export default function TakeQuizListClient() {
       {/* Main Content */}
       <div className="flex-1 p-4 mt-10 sm:p-6 md:ml-64">
         <div className="max-w-6xl mx-auto">
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-700">{error}</p>
+            </div>
+          )}
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 mb-8">
             {/* Search */}
