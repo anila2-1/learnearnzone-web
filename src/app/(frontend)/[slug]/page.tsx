@@ -74,7 +74,7 @@ export default async function BlogPage({ params }: Props) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories/${blog.category.id}?depth=1`,
-        { next: { revalidate: 3600 } },
+        { next: { revalidate: 3600 } }
       )
       if (res.ok) {
         category = await res.json()
@@ -90,7 +90,7 @@ export default async function BlogPage({ params }: Props) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/blogs?where[category][equals][id]=${category.id}&limit=6&depth=1`,
-        { next: { revalidate: 3600 } },
+        { next: { revalidate: 3600 } }
       )
       if (res.ok) {
         const data = await res.json()
