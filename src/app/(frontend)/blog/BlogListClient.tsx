@@ -39,7 +39,7 @@ export default function BlogListClient({ initialPage = 1 }: { initialPage?: numb
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/blogs?where[status][equals]=published&sort=-createdAt&page=${page}&limit=6`,
         {
           // No caching — fresh data on client
-        },
+        }
       )
       if (!res.ok) throw new Error('Failed to fetch blogs')
       const data: BlogResponse = await res.json()
@@ -83,18 +83,20 @@ export default function BlogListClient({ initialPage = 1 }: { initialPage?: numb
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col items-center justify-center p-6 text-center">
-        <div className="text-6xl mb-4">⚠️</div>
-        <h3 className="text-2xl font-semibold text-gray-700 mb-2">Oops! Something went wrong.</h3>
-        <p className="text-gray-600 mb-6">{error}</p>
-        <button
-          onClick={() => fetchBlogs(currentPage)}
-          className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-        >
-          Retry
-        </button>
+      <>
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col items-center justify-center p-6 text-center">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h3 className="text-2xl font-semibold text-gray-700 mb-2">Oops! Something went wrong.</h3>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button
+            onClick={() => fetchBlogs(currentPage)}
+            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+          >
+            Retry
+          </button>
+        </div>
         <Footer />
-      </div>
+      </>
     )
   }
 
