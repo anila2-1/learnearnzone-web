@@ -265,7 +265,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 })
 
 type Props = {
-  data: DefaultTypedEditorState
+  data: any
   enableGutter?: boolean
   enableProse?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
@@ -283,7 +283,7 @@ export default function RichText(props: Props) {
           'max-w-none': !enableGutter,
           'mx-auto': enableProse, // Removed prose classes to avoid conflicts
         },
-        className,
+        className
       )}
       {...rest}
     />
