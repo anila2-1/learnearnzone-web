@@ -1,4 +1,4 @@
-// src/app/(frontend)/blog/[slug]/page.tsx
+// src/app/(frontend)/[slug]/page.tsx
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { getBlogBySlug } from '../../../lib/getBlogBySlug'

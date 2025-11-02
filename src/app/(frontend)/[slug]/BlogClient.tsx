@@ -1,4 +1,4 @@
-// src/app/(frontend)/blog/[slug]/BlogClient.tsx
+// src/app/(frontend)/[slug]/BlogClient.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
