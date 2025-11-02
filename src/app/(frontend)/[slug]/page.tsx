@@ -103,7 +103,7 @@ export default async function BlogPage({ params }: Props) {
 
   return (
     <div>
-      {/* ✅ Preload critical images */}
+      {/* Preload critical images */}
       {blog.image?.url && (
         <link
           rel="preload"
