@@ -12,7 +12,7 @@ const Blogs: CollectionConfig = {
     group: 'Content',
     preview: (doc) => {
       return `${process.env.NEXT_PUBLIC_SERVER_URL}/api/preview?url=${encodeURIComponent(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/${doc.slug}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/${doc.slug}`
       )}`
     },
   },

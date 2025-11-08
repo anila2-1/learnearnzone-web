@@ -79,7 +79,7 @@ export default function HomePageClient() {
 
         {/* Subtle Grid Pattern */}
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage: `
               linear-gradient(rgba(79, 70, 229, 0.1) 1px, transparent 1px),

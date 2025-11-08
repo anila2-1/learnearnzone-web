@@ -7,6 +7,7 @@ import Link from 'next/link'
 import RichText from '@/components/RichText'
 import Image from 'next/image'
 import AnimatedBlogCard from './../categories/AnimatedCategoryBlogCard' // 👈 Add this
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 interface Question {
   id: string
@@ -24,7 +25,7 @@ interface Quiz {
 interface Blog {
   id: string
   title: string
-  content: any[]
+  content: DefaultTypedEditorState
   image?: { url: string }
   quizzes?: Quiz[]
   category?: {
@@ -601,10 +602,7 @@ export function BlogClient({
             />
           </div>
         )}
-        <RichText
-          content={Array.isArray(post!.content) ? post!.content.join('') : post!.content}
-          data={post!.content as any}
-        />
+        <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
       </article>
 
       {/* RELATED POSTS SECTION */}

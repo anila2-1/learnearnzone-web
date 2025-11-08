@@ -1,7 +1,7 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb' // database-adapter-import
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { defaultLexical } from '@/fields/defaultLexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
@@ -36,7 +36,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Pages, Blogs, Members, Quizzes, Withdrawals, Categories],
-  editor: lexicalEditor(),
+  editor: defaultLexical,
 
   blocks: [Banner, CallToAction, Archive, Content, FormBlock, MediaBlock],
   secret: process.env.PAYLOAD_SECRET || '',
