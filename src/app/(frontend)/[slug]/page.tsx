@@ -112,7 +112,7 @@ export default async function BlogPage({ params }: Props) {
         />
       )}
       <BlogClient
-        initialBlog={blog}
+        initialBlog={blog as any}
         initialCategory={category}
         initialRelatedBlogs={relatedBlogs}
       />
