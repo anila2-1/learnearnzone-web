@@ -7,7 +7,6 @@ import { useForm, FormProvider } from 'react-hook-form'
 import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
-import type { SerializedLexicalNode } from 'lexical'
 
 import { fields } from './fields'
 import { getClientSideURL } from './../../utilities/getURL'
@@ -17,7 +16,7 @@ export type FormBlockType = {
   blockType?: 'formBlock'
   enableIntro: boolean
   form: FormType
-  introContent?: SerializedEditorState<SerializedLexicalNode> // Updated type
+  introContent?: SerializedEditorState
 }
 
 export const FormBlock: React.FC<
@@ -115,12 +114,12 @@ export const FormBlock: React.FC<
   return (
     <div className="container lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
-        <RichText className="mb-8 lg:mb-12" data={introContent as any} enableGutter={false} />
+        <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
       <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
-            <RichText data={confirmationMessage as any} />
+            <RichText data={confirmationMessage} />
           )}
           {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
