@@ -351,7 +351,7 @@ export default function HomePageClient() {
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 text-base"
                   >
-                    Join Now — It's Free
+                    Join Now — It&apos; Free
                   </LoadingLink>
                   <LoadingLink
                     href="/auth/login"

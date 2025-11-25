@@ -11,7 +11,7 @@ import {
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
-import React, { JSX } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Prism from 'prismjs'
 // load common languages you'll need
@@ -257,28 +257,35 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     )
   },
 
-  // Headings with advanced styling
+  // 🎨 Override specific converters for better styling — NOW WITH PERFECT SIZES AND COLORS
   heading: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const tag = (node as any).tag
 
-    const baseHeadingClass = 'font-bold break-words transition-all duration-300'
-    const headingStyleMap = {
-      h1: `${baseHeadingClass} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-indigo-700 mb-6 leading-tight border-b-4 border-indigo-500 pb-4 drop-shadow-sm`,
-      h2: `${baseHeadingClass} text-2xl sm:text-3xl md:text-4xl lg:text-4xl text-indigo-600 mb-5 leading-tight border-l-4 border-indigo-500 pl-4`,
-      h3: `${baseHeadingClass} text-xl sm:text-2xl md:text-3xl lg:text-4xl text-indigo-500 mb-4 leading-snug leading-tight border-l-4 border-indigo-500 pl-4`,
-      h4: `${baseHeadingClass} text-lg sm:text-xl md:text-2xl lg:text-3xl text-indigo-400 mb-3 font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
-      h5: `${baseHeadingClass} text-base sm:text-lg md:text-xl lg:text-2xl text-gray-800 mb-2 font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
-      h6: `${baseHeadingClass} text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mb-2 uppercase tracking-wide font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
+    // Common styles for ALL headings — NO prose, explicit Tailwind classes
+    const baseStyles = 'border-b border-indigo-200 pb-2 mb-4 font-black text-black'
+
+    switch (tag) {
+      case 'h1':
+        return (
+          <h1 className={`${baseStyles} text-2xl sm:text-3xl lg:text-4xl leading-tight`}>
+            {children}
+          </h1>
+        )
+      case 'h2':
+        return <h2 className={`${baseStyles} text-xl sm:text-2xl lg:text-3xl`}>{children}</h2>
+      case 'h3':
+        return <h3 className={`${baseStyles} text-lg sm:text-xl lg:text-2xl`}>{children}</h3>
+      case 'h4':
+        return <h4 className={`${baseStyles} text-base sm:text-lg lg:text-xl`}>{children}</h4>
+      case 'h5':
+        return <h5 className={`${baseStyles} text-sm sm:text-base lg:text-lg`}>{children}</h5>
+      case 'h6':
+        return <h6 className={`${baseStyles} text-xs sm:text-sm lg:text-base`}>{children}</h6>
+      default:
+        return <h2 className={`${baseStyles} text-xl sm:text-2xl lg:text-3xl`}>{children}</h2>
     }
-
-    const className = headingStyleMap[tag as keyof typeof headingStyleMap] || headingStyleMap.h2
-
-    // Ensure HeadingTag is a valid React element type (string intrinsic or component)
-    const HeadingTag = tag as keyof JSX.IntrinsicElements as React.ElementType
-
-    return <HeadingTag className={className}>{children}</HeadingTag>
   },
 
   text: ({ node }) => {
@@ -287,81 +294,53 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     const text = textNode.text || ''
     const format = textNode.format || 0
 
-    // Build semantic tags for formatting - CHECK IN CORRECT ORDER
+    // Build semantic tags for formatting so Tailwind's default styles apply correctly.
     let content: React.ReactNode = text
 
-    // Bold  - MUST CHECK FIRST
-    if (format & 1) {
-      content = (
-        <strong
-          className="font-bold text-gray-950 bg-yellow-100/50 px-0.5 rounded"
-          style={{
-            fontWeight: 800,
-            display: 'inline',
-          }}
-        >
-          {content}
-        </strong>
-      )
-    }
-
-    // Italic - CHECK SECOND
-    if (format & 2) {
-      content = (
-        <em
-          className="italic text-indigo-900 font-semibold bg-blue-100/40 px-0.5 rounded"
-          style={{
-            fontStyle: 'italic',
-            display: 'inline',
-          }}
-        >
-          {content}
-        </em>
-      )
-    }
-
-    // Underline (bit 2)
-    if (format & 4) {
-      content = (
-        <del
-          style={{
-            textDecoration: 'line-through',
-            textDecorationThickness: '2px',
-            opacity: 0.7,
-          }}
-        >
-          {content}
-        </del>
-      )
-    }
-
-    // Strikethrough (bit 3)
-    if (format & 8) {
+    // Strikethrough
+    if (format & 8)
       content = (
         <u
           style={{
             textDecoration: 'underline',
-            textDecorationThickness: '2px',
-            textUnderlineOffset: '3px',
+            textDecorationThickness: '1px',
           }}
         >
           {content}
         </u>
       )
-    }
+    // Underline
+    if (format & 4)
+      content = (
+        <del
+          style={{
+            textDecoration: 'line-through',
+            textDecorationThickness: '1px',
+          }}
+        >
+          {content}
+        </del>
+      )
+    // Italic — include inline style to force italic on all platforms
+    if (format & 2)
+      content = (
+        <em className="italic" style={{ fontStyle: 'italic' }}>
+          {content}
+        </em>
+      )
 
-    return (
-      <span
-        className="text-gray-800 leading-relaxed"
-        style={{
-          fontFamily: 'inherit',
-          fontSize: 'inherit',
-          lineHeight: 'inherit',
-        }}
-      >
-        {content}
-      </span>
-    )
+    // Bold — use stronger weight and inline style to ensure visibility on mobile
+    if (format & 1)
+      content = (
+        <strong
+          className="font-extrabold"
+          style={{ fontWeight: 800, WebkitFontSmoothing: 'antialiased' }}
+        >
+          {content}
+        </strong>
+      )
+
+    return <span className="text-gray-800">{content}</span>
   },
 
   list: ({ node, nodesToJSX }) => {
@@ -377,8 +356,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       listNode.ordered === true
 
     const className = isOrderedList
-      ? 'list-decimal list-outside mb-8 space-y-4 text-gray-800 pl-8 marker:text-indigo-600 marker:font-bold marker:text-lg'
-      : 'list-disc list-outside mb-8 space-y-4 text-gray-800 pl-8 marker:text-indigo-500 marker:text-xl'
+      ? 'list-decimal list-outside mb-6 space-y-3 text-gray-800 pl-8 marker:text-indigo-600'
+      : 'list-disc list-outside mb-6 space-y-3 text-gray-800 pl-8 marker:text-indigo-600'
 
     return isOrderedList ? (
       <ol className={className}>{children}</ol>
@@ -389,13 +368,13 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
   listitem: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
-    return <li className="text-gray-700 leading-relaxed font-medium">{children}</li>
+    return <li className="text-gray-700 leading-relaxed">{children}</li>
   },
 
   quote: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     return (
-      <blockquote className="border-l-4 border-indigo-700 bg-linear-to-r from-indigo-50 to-purple-50 px-6 py-4 my-8 rounded-r-2xl italic text-gray-700 leading-relaxed font-medium drop-shadow-sm hover:shadow-md transition-shadow duration-300">
+      <blockquote className="border-l-4 border-indigo-500 bg-indigo-50 px-4 py-3 my-6 rounded-r-lg italic text-gray-700 leading-relaxed">
         {children}
       </blockquote>
     )
@@ -408,10 +387,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     // If no text, render nothing
     if (!text || text.trim() === '') return null
 
-    // Render inline code with advanced styling
+    // Render inline code with subtle styling
     return (
       <code
-        className="bg-linear-to-r from-slate-100 to-blue-50 text-indigo-700 px-2 py-1 rounded-md border border-slate-200 font-mono text-sm font-semibold shadow-sm hover:shadow-md transition-shadow duration-200"
+        className="bg-slate-100 text-sky-700 px-1.5 py-0.5 rounded-md border border-slate-200 font-mono text-sm font-medium"
         data-inline-code
       >
         {text}
@@ -543,7 +522,7 @@ export default function RichText(props: Props) {
           'max-w-none': !enableGutter,
           'mx-auto': enableProse,
         },
-        className
+        className,
       )}
       {...rest}
     />
