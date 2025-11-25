@@ -61,14 +61,29 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link
-              href="/"
-              className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
-            >
-              QuizEarn
-            </Link>
-          </motion.div>
+          <motion.div
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="relative inline-block"
+>
+  <Link
+    href="/"
+    className="
+      text-3xl font-extrabold 
+      bg-gradient-to-r from-indigo-600 to-purple-600 
+      bg-clip-text text-transparent
+      transition-all duration-300
+      hover:tracking-wider
+      hover:drop-shadow-xl
+    "
+  >
+    LearnEarnZone
+  </Link>
+
+  {/* Optional: glowing gradient underline */}
+  <span className="absolute left-0 bottom-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 rounded-full opacity-0 transition-opacity duration-300 hover:opacity-100"></span>
+</motion.div>
+
 
           {/* Right Side: Toggle Buttons */}
           <div className="flex items-center gap-4">

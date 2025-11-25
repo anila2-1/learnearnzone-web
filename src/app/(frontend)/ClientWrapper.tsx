@@ -11,7 +11,7 @@ interface ClientWrapperProps {
 export default function ClientWrapper({ children }: ClientWrapperProps) {
   return (
     <SidebarProvider>
-      <Navbar />
+     <Navbar />
       <main className="flex-1">{children}</main>
     </SidebarProvider>
   )

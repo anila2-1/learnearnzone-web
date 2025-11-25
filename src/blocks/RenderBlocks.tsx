@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react'
 
-import type { Page } from '@/payload-types'
+import type { Config, Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import MediaBlock from '@/blocks/MediaBlock/Component'
+
+type Block = Config['blocks'][keyof Config['blocks']]
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -17,7 +19,7 @@ const blockComponents = {
 }
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout']
+  blocks: Block[]
 }> = (props) => {
   const { blocks } = props
 

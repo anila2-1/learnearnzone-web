@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://quiz-learn-web.vercel.app',
+  siteUrl: 'https://learnearnzone.com',
   generateRobotsTxt: true,
   // optional
   // changefreq: 'daily',

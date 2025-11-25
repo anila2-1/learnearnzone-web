@@ -1,5 +1,5 @@
 {
-  "name": "sdarots",
+  "name": "learnearnzone",
   "version": "1.0.0",
   "description": "Website template for Payload",
   "license": "MIT",
@@ -52,6 +52,7 @@
     "nodemailer": "^7.0.10",
     "payload": "3.62.0",
     "prism-react-renderer": "^2.3.1",
+    "prismjs": "^1.30.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-dropzone": "^14.3.8",
@@ -64,11 +65,13 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@playwright/test": "1.54.1",
-    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/postcss": "^4.1.15",
+    "@tailwindcss/typography": "^0.5.19",
     "@testing-library/react": "16.3.0",
     "@types/escape-html": "^1.0.2",
     "@types/node": "22.5.4",
     "@types/nodemailer": "^7.0.3",
+    "@types/prismjs": "^1.26.5",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.5.2",
@@ -81,7 +84,7 @@
     "playwright-core": "1.54.1",
     "postcss": "^8.4.38",
     "prettier": "^3.4.2",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^4.1.15",
     "typescript": "5.7.3",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.3"

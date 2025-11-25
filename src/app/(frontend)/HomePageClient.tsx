@@ -54,18 +54,6 @@ export default function HomePageClient() {
           }}
         ></div>
 
-        {/* Orb 2: Bouncing */}
-        <div
-          className="absolute w-96 h-96 rounded-full blur-3xl opacity-60 animate-bounce"
-          style={{
-            background:
-              'radial-gradient(circle at 70% 70%, rgba(192, 38, 211, 0.2), transparent 60%)',
-            right: '-10%',
-            bottom: '-10%',
-            animation: 'float 25s ease-in-out infinite reverse',
-          }}
-        ></div>
-
         {/* Orb 3: Rotating */}
         <div
           className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full blur-2xl opacity-40 animate-spin"
@@ -79,10 +67,10 @@ export default function HomePageClient() {
 
         {/* Subtle Grid Pattern */}
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(79, 70, 229, 0.1) 1px, transparent 1px),
+              linear-gradient(rgba(69, 70, 229, 0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(79, 70, 229, 0.1) 1px, transparent 1px)
             `,
             backgroundSize: '50px 50px',
@@ -90,57 +78,221 @@ export default function HomePageClient() {
         ></div>
       </div>
 
-      {/* Animated Ink Smoke Clouds */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <MotionDiv
-          initial={{ opacity: 0, y: -100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, delay: 0.5 }}
-          className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 rounded-full blur-3xl opacity-30 animate-pulse"
+      {/* Memphis Design Elements - Bold, Colorful, Geometric */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* Memphis Circles */}
+        <div
+          className="absolute w-10 h-10 bg-red-500 rounded-full opacity-80"
           style={{
-            filter: 'blur(40px)',
-            transform: 'scale(1.2)',
-            animation: 'float 20s ease-in-out infinite',
+            left: '5%',
+            top: '10%',
+            animation: 'float 6s ease-in-out infinite',
           }}
-        ></MotionDiv>
+        ></div>
 
-        <MotionDiv
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 2, delay: 1.5 }}
-          className="absolute -bottom-40 -right-40 w-80 h-80 bg-gradient-to-l from-cyan-400 via-blue-400 to-indigo-400 rounded-full blur-3xl opacity-30 animate-pulse"
+        <div
+          className="absolute w-10 h-10 bg-yellow-500 rounded-full opacity-70"
           style={{
-            filter: 'blur(35px)',
-            transform: 'scale(1.1)',
-            animation: 'float 25s ease-in-out infinite reverse',
+            right: '10%',
+            top: '20%',
+            animation: 'pulse 5s ease-in-out infinite',
           }}
-        ></MotionDiv>
+        ></div>
 
-        <MotionDiv
-          initial={{ opacity: 0, rotate: -180 }}
-          animate={{ opacity: 1, rotate: 0 }}
-          transition={{ duration: 2, delay: 2.5 }}
-          className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-t from-green-200 via-yellow-200 to-orange-200 rounded-full blur-3xl opacity-30 animate-pulse"
+        {/* Memphis Squares */}
+        <div
+          className="absolute w-18 h-18 bg-green-500 rotate-45 opacity-80"
           style={{
-            filter: 'blur(30px)',
-            transform: 'translate(-50%, -50%) scale(1.3)',
-            animation: 'float 30s ease-in-out infinite',
+            right: '25%',
+            bottom: '10%',
+            animation: 'float 7s ease-in-out infinite',
           }}
-        ></MotionDiv>
+        ></div>
+        <div
+          className="absolute w-24 h-24 border-4 border-dashed border-purple-500 rounded-full opacity-60"
+          style={{
+            left: '20%',
+            bottom: '15%',
+            animation: 'spin 8s linear infinite',
+          }}
+        ></div>
+        <div
+          className="absolute w-14 h-14 bg-blue-500 rounded-md opacity-70"
+          style={{
+            left: '35%',
+            top: '30%',
+            animation: 'pulse 4s ease-in-out infinite',
+          }}
+        ></div>
+
+        {/* Memphis Triangles */}
+
+        <div
+          className="absolute w-0 h-0 opacity-80"
+          style={{
+            right: '5%',
+            bottom: '25%',
+            borderLeft: '18px solid transparent',
+            borderRight: '18px solid transparent',
+            borderTop: '32px solid #8b5cf6',
+            animation: 'float 5s ease-in-out infinite',
+          }}
+        ></div>
+
+        {/* Memphis Lines & Patterns */}
+        <div
+          className="absolute w-24 h-6 opacity-80"
+          style={{
+            left: '10%',
+            top: '60%',
+            animation: 'wiggle 3s ease-in-out infinite',
+          }}
+        >
+          <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 10 L20 0 L40 10 L60 0 L80 10 L100 0" stroke="#f59e0b" strokeWidth="6" />
+          </svg>
+        </div>
+
+        <div
+          className="absolute w-28 h-8 opacity-70"
+          style={{
+            right: '15%',
+            bottom: '5%',
+            animation: 'wiggle 4s ease-in-out infinite',
+          }}
+        >
+          <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 10 L10 0 L20 10 L30 0 L40 10 L50 0 L60 10 L70 0 L80 10 L90 0 L100 10"
+              stroke="#10b981"
+              strokeWidth="6"
+            />
+          </svg>
+        </div>
+
+        {/* Memphis Dots */}
+        <div
+          className="absolute w-6 h-6 bg-pink-500 rounded-full opacity-80"
+          style={{
+            left: '80%',
+            top: '40%',
+            animation: 'pulse 3s ease-in-out infinite',
+          }}
+        ></div>
+
+        <div
+          className="absolute w-8 h-8 bg-cyan-500 rounded-full opacity-70"
+          style={{
+            right: '30%',
+            top: '65%',
+            animation: 'float 5s ease-in-out infinite',
+          }}
+        ></div>
+
+        {/* Memphis Plus Signs */}
+        <div
+          className="absolute w-10 h-10 opacity-70"
+          style={{
+            left: '70%',
+            bottom: '30%',
+            animation: 'rotate 7s linear infinite',
+          }}
+        >
+          <div className="absolute w-10 h-1 bg-fuchsia-500 top-4.5 left-0"></div>
+          <div className="absolute w-1 h-10 bg-fuchsia-500 top-0 left-4.5"></div>
+        </div>
+
+        {/* Memphis Striped Shapes */}
+        <div
+          className="absolute w-20 h-20 opacity-60"
+          style={{
+            right: '40%',
+            top: '50%',
+            animation: 'spin 10s linear infinite',
+          }}
+        >
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="20" height="20" fill="#8b5cf6" />
+            <line x1="0" y1="2" x2="20" y2="2" stroke="#ffffff" strokeWidth="2" />
+            <line x1="0" y1="6" x2="20" y2="6" stroke="#ffffff" strokeWidth="2" />
+            <line x1="0" y1="10" x2="20" y2="10" stroke="#ffffff" strokeWidth="2" />
+            <line x1="0" y1="14" x2="20" y2="14" stroke="#ffffff" strokeWidth="2" />
+            <line x1="0" y1="18" x2="20" y2="18" stroke="#ffffff" strokeWidth="2" />
+          </svg>
+        </div>
+
+        {/* Memphis Checkerboard - TOP CENTER */}
+        <div
+          className="absolute w-16 h-16 opacity-50 z-10"
+          style={{
+            left: '50%',
+            top: '0', // Changed from bottom to top
+            transform: 'translateX(-50%)', // Center horizontally
+            animation: 'float 8s ease-in-out infinite',
+          }}
+        >
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="16" height="16" fill="#10b981" />
+            <rect x="0" y="0" width="4" height="4" fill="#ffffff" />
+            <rect x="8" y="0" width="4" height="4" fill="#ffffff" />
+            <rect x="4" y="4" width="4" height="4" fill="#ffffff" />
+            <rect x="12" y="4" width="4" height="4" fill="#ffffff" />
+            <rect x="0" y="8" width="4" height="4" fill="#ffffff" />
+            <rect x="8" y="8" width="4" height="4" fill="#ffffff" />
+            <rect x="4" y="12" width="4" height="4" fill="#ffffff" />
+            <rect x="12" y="12" width="4" height="4" fill="#ffffff" />
+          </svg>
+        </div>
+
+        {/* Memphis Wavy Lines */}
+        <div
+          className="absolute w-32 h-8 opacity-70"
+          style={{
+            left: '25%',
+            top: '75%',
+            animation: 'wiggle 5s ease-in-out infinite',
+          }}
+        >
+          <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 10 C10 5, 20 15, 30 10 C40 5, 50 15, 60 10 C70 5, 80 15, 90 10 C100 5, 110 15, 120 10"
+              stroke="#f59e0b"
+              strokeWidth="6"
+            />
+          </svg>
+        </div>
       </div>
 
       {/* Floating Animation Keyframes */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(20px, 20px); }
-          50% { transform: translate(-10px, -10px); }
-          75% { transform: translate(-20px, 20px); }
+          25% { transform: translate(10px, 10px); }
+          50% { transform: translate(-5px, -5px); }
+          75% { transform: translate(-10px, 10px); }
         }
 
         @keyframes pulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.5; }
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 0.9; }
+        }
+
+        @keyframes rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes wiggle {
+          0% { transform: translateY(0px) rotate(0deg); }
+          25% { transform: translateY(-3px) rotate(3deg); }
+          50% { transform: translateY(0px) rotate(0deg); }
+          75% { transform: translateY(3px) rotate(-3deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
         }
 
         @keyframes grow {
@@ -163,7 +315,7 @@ export default function HomePageClient() {
       `}</style>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center pt-16">
         <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -199,7 +351,7 @@ export default function HomePageClient() {
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 text-base"
                   >
-                    Join Now — It’s Free
+                    Join Now — It's Free
                   </LoadingLink>
                   <LoadingLink
                     href="/auth/login"

@@ -68,6 +68,7 @@ export interface Config {
   };
   blocks: {
     banner: BannerBlock;
+    code: CodeBlock;
     cta: CallToActionBlock;
     archive: ArchiveBlock;
     content: ContentBlock;
@@ -188,6 +189,17 @@ export interface BannerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?: ('typescript' | 'javascript' | 'css') | null;
+  code: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -248,61 +260,6 @@ export interface Page {
   /**
    * Page sections can be arranged using drag & drop
    */
-  layout?: (Hero | RichText | Image)[] | null;
-  seo?: {
-    /**
-     * Google search results in Title (60 characters tak)
-     */
-    title?: string | null;
-    /**
-     * Meta Description (160 characters tak)
-     */
-    description?: string | null;
-    image?: (string | null) | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero".
- */
-export interface Hero {
-  heading: string;
-  subheading?: string | null;
-  ctaText?: string | null;
-  ctaLink?: string | null;
-  backgroundImage?: (string | null) | Media;
-  theme?: ('light' | 'dark') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichText".
- */
-export interface RichText {
   content?: {
     root: {
       type: string;
@@ -318,22 +275,19 @@ export interface RichText {
     };
     [k: string]: unknown;
   } | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'richText';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Image".
- */
-export interface Image {
-  image: string | Media;
-  caption?: string | null;
-  size?: ('small' | 'medium' | 'large' | 'full') | null;
-  alignment?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'image';
+  seo?: {
+    /**
+     * Google search results in Title (60 characters tak)
+     */
+    title?: string | null;
+    /**
+     * Meta Description (160 characters tak)
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -384,11 +338,29 @@ export interface Blog {
      * Leave blank to auto-generate from excerpt
      */
     description?: string | null;
-    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1017,58 +989,16 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  layout?:
-    | T
-    | {
-        hero?: T | HeroSelect<T>;
-        richText?: T | RichTextSelect<T>;
-        image?: T | ImageSelect<T>;
-      };
+  content?: T;
   seo?:
     | T
     | {
         title?: T;
         description?: T;
-        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Hero_select".
- */
-export interface HeroSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  ctaText?: T;
-  ctaLink?: T;
-  backgroundImage?: T;
-  theme?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichText_select".
- */
-export interface RichTextSelect<T extends boolean = true> {
-  content?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Image_select".
- */
-export interface ImageSelect<T extends boolean = true> {
-  image?: T;
-  caption?: T;
-  size?: T;
-  alignment?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1088,7 +1018,6 @@ export interface BlogsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
-        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1377,17 +1306,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -11,6 +11,8 @@ import { Archive } from './blocks/ArchiveBlock/config'
 import { Content } from './blocks/Content/config'
 import { FormBlock } from './blocks/Form/config'
 import { MediaBlock } from './blocks/MediaBlock/config'
+import { Code } from './blocks/Code/config'
+
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -35,10 +37,12 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  // 👇 Use the environment variable
+  // serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   collections: [Users, Media, Pages, Blogs, Members, Quizzes, Withdrawals, Categories],
   editor: defaultLexical,
 
-  blocks: [Banner, CallToAction, Archive, Content, FormBlock, MediaBlock],
+  blocks: [Banner, Code, CallToAction, Archive, Content, FormBlock, MediaBlock],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

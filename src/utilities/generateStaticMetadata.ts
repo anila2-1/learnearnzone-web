@@ -12,7 +12,7 @@ export function generateStaticMetadata({
   url?: string
   image?: string
 }): Metadata {
-  const siteUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  const siteUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://learnearnzone.com'
   const fullUrl = new URL(url, siteUrl).href
   const ogImage = image || `${siteUrl}/website-template-OG.webp`
 

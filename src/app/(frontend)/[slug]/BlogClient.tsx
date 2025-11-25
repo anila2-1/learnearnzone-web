@@ -23,6 +23,7 @@ interface Quiz {
 }
 
 interface Blog {
+  publishedAt: any
   id: string
   title: string
   content: DefaultTypedEditorState
@@ -206,7 +207,7 @@ export function BlogClient({
 
   if (!post || Object.keys(post).length === 0) {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex flex-col justify-center items-center min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
         <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"></div>
         <p className="text-lg font-semibold text-gray-700 animate-pulse text-center px-4">
           Loading...
@@ -222,7 +223,7 @@ export function BlogClient({
         className="text-2xl sm:text-3xl md:text-4xl mb-6 lg:text-5xl 
              font-extrabold 
              text-transparent bg-clip-text 
-             bg-gradient-to-r from-blue-800 via-violet-800 to-fuchsia-800
+             bg-linear-to-r from-blue-800 via-violet-800 to-fuchsia-800
              text-center leading-snug sm:leading-tight 
              px-4 py-2"
       >
@@ -234,7 +235,7 @@ export function BlogClient({
         <div className="flex justify-center mb-8">
           <Link
             href={`/categories/${category.slug}`}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 border border-indigo-200/50 hover:border-indigo-300/70 transition-all duration-300 shadow-sm hover:shadow-md"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 border border-indigo-200/50 hover:border-indigo-300/70 transition-all duration-300 shadow-sm hover:shadow-md"
           >
             <span
               className="h-3 w-3 rounded-full"
@@ -269,13 +270,13 @@ export function BlogClient({
         return (
           <div
             key={quiz.id}
-            className="mb-8 p-4 sm:p-6 md:p-8 bg-gradient-to-br from-white to-indigo-50 border border-indigo-200 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl"
+            className="mb-8 p-4 sm:p-6 md:p-8 bg-linear-to-br from-white to-indigo-50 border border-indigo-200 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl"
           >
             {/* Quiz Header */}
             <div className="flex justify-center items-center mb-6 sm:mb-8">
               {state.completed ? (
                 <div className="group relative">
-                  <div className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 text-white rounded-full text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 sm:gap-3 backdrop-blur-sm border border-white/10">
+                  <div className="px-5 sm:px-6 py-2.5 sm:py-3 bg-linear-to-r from-green-500 via-emerald-500 to-teal-600 text-white rounded-full text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 sm:gap-3 backdrop-blur-sm border border-white/10">
                     <svg
                       className="w-5 h-5 sm:w-6 sm:h-6"
                       fill="none"
@@ -301,9 +302,9 @@ export function BlogClient({
                       [quiz.id]: { ...prev![quiz.id], showQuiz: !prev![quiz.id]?.showQuiz },
                     }))
                   }
-                  className="group relative px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 sm:gap-3 overflow-hidden"
+                  className="group relative px-6 sm:px-8 py-3 sm:py-3.5 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 sm:gap-3 overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shine"></div>
+                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shine"></div>
                   <svg
                     className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:rotate-12"
                     fill="none"
@@ -348,7 +349,7 @@ export function BlogClient({
                         key={`${quiz.id}-dot-${idx}`}
                         className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${
                           idx < state.answers.filter((a) => a !== null).length
-                            ? 'bg-gradient-to-r from-green-500 to-emerald-600 scale-110 shadow-md'
+                            ? 'bg-linear-to-r from-green-500 to-emerald-600 scale-110 shadow-md'
                             : idx === state.currentQuestionIndex
                               ? 'bg-blue-500 scale-105 ring-2 ring-blue-300'
                               : 'bg-gray-300 hover:bg-gray-400'
@@ -444,7 +445,7 @@ export function BlogClient({
                     <button
                       onClick={() => goToNext(quiz.id)}
                       disabled={!state.answers[state.currentQuestionIndex]}
-                      className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg sm:rounded-xl disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-medium"
+                      className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-lg sm:rounded-xl disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-medium"
                     >
                       Next →
                     </button>
@@ -460,7 +461,7 @@ export function BlogClient({
                         group relative
                         px-6 sm:px-8 py-3 sm:py-3.5
                         text-sm sm:text-base font-medium
-                        bg-gradient-to-r from-green-600 to-emerald-600
+                        bg-linear-to-r from-green-600 to-emerald-600
                         text-white
                         rounded-xl sm:rounded-2xl
                         shadow-lg hover:shadow-xl
@@ -523,8 +524,8 @@ export function BlogClient({
 
             {/* Result */}
             {state.completed && (
-              <div className="mt-6 sm:mt-8 p-6 sm:p-8 bg-gradient-to-br from-emerald-50 via-white to-teal-50 border border-emerald-200/70 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl text-center backdrop-blur-sm relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-100/20 to-teal-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+              <div className="mt-6 sm:mt-8 p-6 sm:p-8 bg-linear-to-br from-emerald-50 via-white to-teal-50 border border-emerald-200/70 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl text-center backdrop-blur-sm relative overflow-hidden group">
+                <div className="absolute inset-0 bg-linear-to-r from-emerald-100/20 to-teal-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 <div className="absolute top-0 right-0 w-20 h-20">
                   <div
                     className="absolute top-2 right-2 w-2 h-2 bg-yellow-400 rounded-full animate-bounce"
@@ -541,7 +542,7 @@ export function BlogClient({
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6">
                   <div className="relative">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-emerald-500/30 transition-shadow duration-300">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-linear-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-emerald-500/30 transition-shadow duration-300">
                       <svg
                         className="w-8 h-8 sm:w-9 sm:h-9 text-white drop-shadow-sm"
                         fill="none"
@@ -554,7 +555,7 @@ export function BlogClient({
                     </div>
                     <div className="absolute inset-0 rounded-full border-2 border-emerald-400/50 animate-ping opacity-75"></div>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-700 bg-clip-text text-transparent leading-tight">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold bg-linear-to-r from-emerald-700 via-teal-700 to-cyan-700 bg-clip-text text-transparent leading-tight">
                     Quiz Completed!
                   </h3>
                 </div>
@@ -584,25 +585,25 @@ export function BlogClient({
       })}
 
       {/* Blog Content */}
-      <article
-        className="relative prose prose-sm sm:prose-lg max-w-none mb-8 sm:mb-12
-                   bg-white/60 backdrop-blur-xl border border-gray-200 
-                   rounded-2xl sm:rounded-3xl shadow-md sm:shadow-lg p-4 sm:p-6 md:p-8 leading-relaxed text-gray-800
-                   transition-all duration-500 hover:shadow-xl sm:hover:shadow-2xl"
-      >
-        {post!.image && (
-          <div className="w-full aspect-video mb-8 overflow-hidden rounded-xl sm:rounded-2xl shadow-md sm:shadow-xl">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_SERVER_URL}${post!.image.url}`}
-              alt={post!.title}
-              width={800}
-              height={600}
-              unoptimized
-              className="w-full h-full object-cover"
-            />
+      <article className=" py-14 px-3 sm:px-4 lg:px-6">
+        {/* Main Card */}
+        <div className="bg-white rounded-2xl p-4 -m-6 sm:p-6 lg:p-10 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200/60">
+          {/* Featured Image */}
+          {typeof post.image === 'object' && post.image?.url && (
+            <div className="w-full max-w-3xl mx-auto mb-8 rounded-3xl overflow-hidden shadow-lg border border-gray-200 bg-white group">
+              <img
+                src={post.image.url}
+                alt={post.title}
+                className="w-full h-[220px] sm:h-80 lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          )}
+
+          {/* Content */}
+          <div className="max-w-3xl mx-auto">
+            <RichText data={post.content} enableGutter={false} />
           </div>
-        )}
-        <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
+        </div>
       </article>
 
       {/* RELATED POSTS SECTION */}
@@ -611,7 +612,7 @@ export function BlogClient({
           {relatedBlogs.length > 0 ? (
             <>
               <h2
-                className="text-2xl sm:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+                className="text-2xl sm:text-3xl font-bold text-center mb-8 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
                 style={{ WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
               >
                 Related Posts in “{category.title}”
@@ -634,7 +635,7 @@ export function BlogClient({
       <div className="mt-8 sm:mt-10 pt-4 sm:pt-6 border-t border-gray-100">
         <Link
           href="/blog"
-          className="group inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg sm:rounded-2xl bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-white border border-gray-200 
+          className="group inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg sm:rounded-2xl bg-linear-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-white border border-gray-200 
                hover:shadow-md sm:hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 text-gray-700 font-medium text-sm sm:text-base
                focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
@@ -654,7 +655,7 @@ export function BlogClient({
               />
             </svg>
           </span>
-          <span className="font-semibold bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent group-hover:from-indigo-600 group-hover:to-purple-600 transition-all duration-300">
+          <span className="font-semibold bg-linear-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent group-hover:from-indigo-600 group-hover:to-purple-600 transition-all duration-300">
             Back to Blog
           </span>
         </Link>

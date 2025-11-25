@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <>
       {/* Footer */}
-      <footer className="relative overflow-hidden bg-gradient-to-b from-white via-indigo-50/30 to-purple-50/20 py-16 px-6 border-t border-gray-100">
+      <footer className="relative overflow-hidden bg-white py-16 px-6 border-t border-gray-100">
         {/* Background Accents (Soft Blur Blobs) */}
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-100/20 rounded-full blur-3xl"></div>
         <div className="absolute top-20 -right-40 w-96 h-96 bg-purple-100/20 rounded-full blur-3xl"></div>
@@ -38,7 +38,7 @@ const Footer = () => {
             <div className="space-y-5 max-w-xs">
               <Link href="/" className="inline-block group">
                 <span className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent tracking-tight transition-all duration-300">
-                  QuizEarn
+                  LearnEarnZone
                 </span>
               </Link>
               <p className="text-sm leading-relaxed text-gray-600 pr-4">
@@ -136,7 +136,7 @@ const Footer = () => {
           <div className="text-center text-sm text-gray-500">
             © {new Date().getFullYear()}{' '}
             <Link href="/" className="font-medium text-gray-700 hover:text-indigo-600 transition">
-              QuizEarn
+              LearnEarnZone
             </Link>{' '}
             — Where Learning Meets Rewards.
           </div>

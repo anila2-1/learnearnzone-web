@@ -2,7 +2,19 @@
 import { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slugField'
 import { isAdmin } from '../access/isAdmin'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  BlocksFeature,
+  FixedToolbarFeature,
+  HeadingFeature,
+  HorizontalRuleFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+  EXPERIMENTAL_TableFeature,
+} from '@payloadcms/richtext-lexical'
+
+import { Banner } from './../blocks/Banner/config'
+import { Code } from './../blocks/Code/config'
+import { MediaBlock } from '@/blocks/MediaBlock/config'
 
 const Blogs: CollectionConfig = {
   slug: 'blogs',
@@ -59,7 +71,15 @@ const Blogs: CollectionConfig = {
           'The main content of your blog post. Supports rich formatting, lists, images, etc.',
       },
       editor: lexicalEditor({
-        features: ({ defaultFeatures }) => defaultFeatures,
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+          BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+          FixedToolbarFeature(),
+          InlineToolbarFeature(),
+          HorizontalRuleFeature(),
+          EXPERIMENTAL_TableFeature(),
+        ],
       }),
     },
     {
@@ -104,12 +124,6 @@ const Blogs: CollectionConfig = {
           type: 'textarea',
           label: 'Meta Description',
           admin: { description: 'Leave blank to auto-generate from excerpt' },
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Open Graph Image (1200x630)',
         },
       ],
     },

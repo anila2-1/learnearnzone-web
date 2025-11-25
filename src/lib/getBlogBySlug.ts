@@ -30,7 +30,7 @@ export type Blog = {
 
 export const getBlogBySlug = cache(async (slug: string): Promise<Blog | null> => {
   try {
-    const API_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+    const API_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://learnearnzone.com'
     const res = await fetch(
       `${API_URL}/api/blogs?where[slug][equals]=${encodeURIComponent(slug)}&depth=2`,
       {

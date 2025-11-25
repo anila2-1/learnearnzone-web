@@ -64,7 +64,9 @@ export default function LoginPage() {
         <h1 className="text-3xl font-extrabold text-center mb-2 bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent">
           Welcome Back
         </h1>
-        <p className="text-center text-gray-500 text-sm mb-8">Sign in to continue to QuizEarn</p>
+        <p className="text-center text-gray-500 text-sm mb-8">
+          Sign in to continue to LearnEarnZone
+        </p>
 
         {error && (
           <div className="mb-6 p-3 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-700 text-sm animate-fadeIn">

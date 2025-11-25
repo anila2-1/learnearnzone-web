@@ -86,12 +86,12 @@ export async function POST(req: NextRequest) {
     const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`
 
     await transporter.sendMail({
-      from: `"QuizEarn" <${process.env.EMAIL_USER}>`,
+      from: `"LearnEarnZone" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: '🔐 Verify Your Email – QuizEarn',
+      subject: '🔐 Verify Your Email – LearnEarnZone',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #f8fafc;">
-          <h2 style="color: #4f46e5; text-align: center;">Welcome to QuizEarn, ${name}!</h2>
+          <h2 style="color: #4f46e5; text-align: center;">Welcome to LearnEarnZone, ${name}!</h2>
           <p style="font-size: 16px; color: #334155; line-height: 1.6;">
             Please verify your email to activate your account and start earning.
           </p>
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
     console.error('Signup error:', error)
     return NextResponse.json(
       { error: 'Failed to send verification email. Please try again.' },
-      { status: 500 },
+      { status: 500 }
     )
   }
 }

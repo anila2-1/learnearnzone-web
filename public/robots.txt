@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://quiz-learn-web.vercel.app
+Host: https://learnearnzone.com
 
 # Sitemaps
-Sitemap: https://quiz-learn-web.vercel.app/sitemap.xml
+Sitemap: https://learnearnzone.com/sitemap.xml

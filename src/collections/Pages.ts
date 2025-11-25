@@ -1,8 +1,12 @@
 // src/collections/Pages.ts
 import { CollectionConfig } from 'payload'
-import Hero from '../blocks/Hero'
-import RichTextBlock from '../blocks/RichTextBlock'
-import ImageBlock from '../blocks/ImageBlock'
+// import Hero from '../blocks/Hero'
+import {
+  FixedToolbarFeature,
+  // BlocksFeature,
+  lexicalEditor,
+  EXPERIMENTAL_TableFeature,
+} from '@payloadcms/richtext-lexical'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -36,10 +40,17 @@ const Pages: CollectionConfig = {
       },
     },
     {
-      name: 'layout',
-      type: 'blocks',
+      name: 'content',
+      type: 'richText',
       label: 'Page Layout',
-      blocks: [Hero, RichTextBlock, ImageBlock],
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          FixedToolbarFeature(),
+          EXPERIMENTAL_TableFeature(),
+          // BlocksFeature(),
+        ],
+      }),
       admin: {
         description: 'Page sections can be arranged using drag & drop',
       },
@@ -64,12 +75,6 @@ const Pages: CollectionConfig = {
           admin: {
             description: 'Meta Description (160 characters tak)',
           },
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Open Graph Image (1200x630)',
         },
       ],
     },

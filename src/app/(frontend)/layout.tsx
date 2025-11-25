@@ -15,6 +15,7 @@ const poppins = Poppins({
 export default function FrontendLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      
       <body className={`${poppins.variable} font-sans`}>
         <AuthProvider>
           <ClientWrapper>{children}</ClientWrapper>

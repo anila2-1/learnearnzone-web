@@ -56,13 +56,6 @@ export default function ProfileForm({ member }: { member: Member }) {
     }
   }
 
-  // useEffect(() => {
-  //   // Simulate API fetch
-  //   setTimeout(() => {
-  //     setIsLoading(false)
-  //   }, 200) // ← Only 200ms if needed
-  // }, [])
-
   return (
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 md:px-8">
       <motion.form
@@ -70,7 +63,7 @@ export default function ProfileForm({ member }: { member: Member }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         onSubmit={handleSubmit}
-        className="bg-white/90 w-full backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200/60 p-4 sm:p-6 md:p-8 transition-all duration-300 hover:shadow-2xl"
+        className="bg-white/90 w-full backdrop-blur-lg rounded-2xl shadow-lg border border-gray-200/60 p-4 sm:p-6 md:p-8 transition-all duration-300 hover:shadow-xl"
       >
         {/* Message */}
         {message && (
@@ -130,13 +123,18 @@ export default function ProfileForm({ member }: { member: Member }) {
                 const value = e.target.value
                 setWalletAddress(value)
                 const error = validateWalletAddress(value)
-                setErrors({ ...errors, walletAddress: error })
+                setErrors((prev) => ({ ...prev, walletAddress: error }))
+              }}
+              onBlur={() => {
+                // Validate on blur too
+                const error = validateWalletAddress(walletAddress)
+                setErrors((prev) => ({ ...prev, walletAddress: error }))
               }}
               className={`w-full bg-gray-50 border ${
                 errors.walletAddress ? 'border-red-500' : 'border-gray-300'
               } rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+              placeholder="Enter UPI or crypto wallet address"
             />
-            {/* ✅ Show error OR success icon */}
             {errors.walletAddress ? (
               <p className="text-red-500 text-sm mt-1">{errors.walletAddress}</p>
             ) : walletAddress.trim() ? (
@@ -156,7 +154,9 @@ export default function ProfileForm({ member }: { member: Member }) {
                 </svg>
                 <span className="text-green-500 text-sm ml-1">Valid address</span>
               </div>
-            ) : null}
+            ) : (
+              <p className="text-gray-500 text-sm mt-1">Enter UPI (user@upi) or crypto address</p>
+            )}
           </div>
         </div>
 
@@ -186,6 +186,21 @@ export default function ProfileForm({ member }: { member: Member }) {
             className="flex-1 py-3 px-6 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-xl shadow hover:shadow-lg"
           >
             Logout
+          </motion.button>
+          {/* ✅ Reset Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => {
+              setName(member.name || '')
+              setWalletAddress(member.walletAddress || '')
+              setErrors({})
+              setMessage('')
+            }}
+            className="flex-1 py-3 px-4 bg-gray-200 text-gray-700 font-semibold rounded-xl shadow hover:shadow-lg"
+          >
+            Reset
           </motion.button>
         </div>
       </motion.form>

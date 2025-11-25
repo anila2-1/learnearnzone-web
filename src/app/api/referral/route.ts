@@ -50,7 +50,7 @@ export async function GET() {
 
   const referralsCount = referredMembers.docs.length
   const referralCode = member.referralCode || 'N/A'
-  const referralLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://quiz-learn-web.vercel.app'}/referral/${referralCode}`
+  const referralLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://learnearnzone.com'}/referral/${referralCode}`
 
   return new Response(
     JSON.stringify({

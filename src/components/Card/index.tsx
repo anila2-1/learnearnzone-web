@@ -6,7 +6,7 @@ import React from 'react'
 import type { Blog } from '@/payload-types'
 import { Media } from '@/components/Media'
 
-export type CardPostData = Pick<Blog, 'slug' | 'category' | 'seo' | 'title'>
+export type CardPostData = Pick<Blog, 'slug' | 'category' | 'seo' | 'title' | 'image'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -18,8 +18,8 @@ export const Card: React.FC<{
 }> = (props) => {
   const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
-  const { slug, category, seo, title } = doc || {}
-  const { description, image: metaImage } = seo || {}
+  const { slug, category, seo, title, image } = doc || {}
+  const { description } = seo || {}
 
   const hasCategory = category ? true : false
   const titleToUse = titleFromProps || title
@@ -35,14 +35,14 @@ export const Card: React.FC<{
     >
       {/* Image Section */}
       <div className="relative w-full h-56 overflow-hidden bg-gray-50">
-        {!metaImage && (
+        {!image && (
           <div className="flex h-full items-center justify-center text-gray-400 text-sm">
             No Image
           </div>
         )}
-        {metaImage && typeof metaImage !== 'string' && metaImage.url && (
+        {image && typeof image !== 'string' && image.url && (
           <Media
-            resource={{ url: metaImage.url, alt: metaImage.alt || '' }}
+            resource={{ url: image.url, alt: image.alt || '' }}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         )}

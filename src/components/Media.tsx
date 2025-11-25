@@ -1,65 +1,35 @@
 import React from 'react'
-import { cn } from '@/utilities/ui'
-import { ImageUpload } from './ImageUpload'
 import Image from 'next/image'
 
-interface MediaProps {
+export interface MediaProps {
+  resource: {
+    url: string
+    alt: string
+  }
   className?: string
   imgClassName?: string
-  resource?: {
-    url?: string
-    alt?: string
-    width?: number
-    height?: number
-  }
-  src?: string
-  onUpload?: (file: File) => void
-  showUpload?: boolean
-  aspectRatio?: string
 }
 
-export const Media: React.FC<MediaProps> = ({
-  className,
-  imgClassName,
-  resource,
-  src,
-  onUpload,
-  showUpload = false,
-  aspectRatio = '16/9',
-}) => {
-  const mediaSrc = src || resource?.url
-
-  if (!mediaSrc && !showUpload) return null
+export const Media: React.FC<MediaProps> = ({ resource, className = '', imgClassName = '' }) => {
+  // Check if URL is relative (from Payload) or absolute
+  const isRelative = resource.url && !resource.url.startsWith('http')
+  const imageUrl = isRelative
+    ? `${process.env.NEXT_PUBLIC_SERVER_URL}${resource.url}`
+    : resource.url
 
   return (
-    <div
-      className={cn(
-        'relative w-full max-w-5xl mx-auto rounded-lg overflow-hidden',
-        'flex items-center justify-center',
-        className,
-      )}
-    >
-      {mediaSrc ? (
-        <div className="w-full">
-          <div className="aspect-[16/9] relative bg-gray-100">
-            <Image
-              src={mediaSrc}
-              alt={resource?.alt || ''}
-              width={800} // Example: 800px wide
-              height={600} // Example: 600px tall
-              unoptimized
-              className={cn(
-                'w-full h-full object-contain',
-                'transition-all duration-300 hover:scale-[1.02]',
-                imgClassName,
-              )}
-              loading="lazy"
-            />
-          </div>
-        </div>
-      ) : showUpload && onUpload ? (
-        <ImageUpload onUpload={onUpload} className="w-full" aspectRatio={aspectRatio} />
-      ) : null}
+    <div className={`relative w-full ${className}`}>
+      <Image
+        src={imageUrl}
+        alt={resource.alt || 'Media'}
+        width={800}
+        height={600}
+        unoptimized
+        className={`w-full h-auto object-cover ${imgClassName}`}
+        loading="lazy"
+      />
     </div>
   )
 }
+
+export default Media

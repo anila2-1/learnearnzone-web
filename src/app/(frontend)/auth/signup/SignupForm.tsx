@@ -92,7 +92,7 @@ export default function SignupForm() {
         Create Account
       </h1>
       <p className="text-center text-gray-500 text-sm mb-6 sm:mb-8">
-        Join QuizEarn today and start earning
+        Join LearnEarnZone today and start earning
       </p>
 
       {error && (

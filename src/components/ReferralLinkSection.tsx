@@ -18,7 +18,7 @@ export default function ReferralLinkSection({
 
   // Clean the referral link (remove accidental spaces)
   useEffect(() => {
-    const cleaned = `https://quiz-learn-web.vercel.app/referral/${referralCode}`.trim()
+    const cleaned = `https://learnearnzone.com/referral/${referralCode}`.trim()
     setCleanLink(cleaned)
   }, [referralCode])
 
