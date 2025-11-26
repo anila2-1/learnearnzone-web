@@ -147,7 +147,7 @@
   display: inline-block !important;
 }
 
-.payload-richtext u {
+/* .payload-richtext u {
   text-decoration: underline !important;
   text-decoration-thickness: 2px !important;
   text-underline-offset: 3px !important;
@@ -163,7 +163,7 @@
   text-decoration-color: currentColor !important;
   -webkit-text-decoration: line-through !important;
   -webkit-text-decoration-thickness: 2px !important;
-}
+} */
 
 /* Mobile-specific overrides */
 @media screen and (max-width: 768px) {
@@ -183,7 +183,7 @@
     letter-spacing: 0.01em !important;
   }
   
-  .payload-richtext u {
+  /* .payload-richtext u {
     text-decoration: underline !important;
     text-decoration-thickness: 2px !important;
     text-underline-offset: 4px !important;
@@ -206,7 +206,7 @@
     height: 2px !important;
     background: currentColor !important;
     transform: translateY(-50%) !important;
-  }
+  } */
   
   /* Force font rendering for better visibility on mobile */
   .payload-richtext strong,
@@ -235,11 +235,11 @@
     -webkit-transform: skew(-15deg) !important;
   }
   
-  .payload-richtext u {
+  /* .payload-richtext u {
     text-decoration: underline !important;
     -webkit-text-decoration: underline !important;
     border-bottom: 2px solid currentColor !important;
-  }
+  } */
 }
 
 /* Android Chrome specific fixes */
@@ -256,9 +256,9 @@
     transform: skew(-12deg) !important;
   }
   
-  .payload-richtext u {
+  /* .payload-richtext u {
     text-decoration: underline !important;
     border-bottom: 2px solid currentColor !important;
     text-decoration-skip-ink: none !important;
-  }
+  } */
 }
