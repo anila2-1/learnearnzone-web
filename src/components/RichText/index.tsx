@@ -280,7 +280,61 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
     return <HeadingTag className={className}>{children}</HeadingTag>
   },
+  text: ({ node }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const textNode = node as any
+    const text = textNode.text || ''
+    const format = textNode.format || 0
 
+    // Build semantic tags for formatting so Tailwind's default styles apply correctly.
+    let content: React.ReactNode = text
+
+    // Bold — use stronger weight and inline style to ensure visibility on mobile
+    if (format & 1)
+      content = (
+        <strong
+          className="font-extrabold"
+          style={{ fontWeight: 800, WebkitFontSmoothing: 'antialiased' }}
+        >
+          {content}
+        </strong>
+      )
+
+    // Italic — include inline style to force italic on all platforms
+    if (format & 2)
+      content = (
+        <em className="italic" style={{ fontStyle: 'italic' }}>
+          {content}
+        </em>
+      )
+
+    // Strikethrough
+    if (format & 8)
+      content = (
+        <u
+          style={{
+            textDecoration: 'underline',
+            textDecorationThickness: '1px',
+          }}
+        >
+          {content}
+        </u>
+      )
+    // Underline
+    if (format & 4)
+      content = (
+        <del
+          style={{
+            textDecoration: 'line-through',
+            textDecorationThickness: '1px',
+          }}
+        >
+          {content}
+        </del>
+      )
+
+    return <span className="text-gray-800">{content}</span>
+  },
   list: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
