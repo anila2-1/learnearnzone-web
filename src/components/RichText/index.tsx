@@ -318,22 +318,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         </em>
       )
 
-    // Strikethrough
-    if (format & 8)
-      content = (
-        <u
-          style={{
-            textDecoration: 'underline',
-            textDecorationThickness: '1px',
-          }}
-        >
-          {content}
-        </u>
-      )
-    // Underline
+    // Underline (format & 4)
     if (format & 4)
       content = (
         <del
+          className="line-through"
           style={{
             textDecoration: 'line-through',
             textDecorationThickness: '1px',
@@ -341,6 +330,21 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         >
           {content}
         </del>
+      )
+
+    // Strikethrough (format & 8)
+    if (format & 8)
+      content = (
+        <u
+          className="underline"
+          style={{
+            textDecoration: 'underline',
+            textDecorationThickness: '1px',
+            textUnderlineOffset: '2px',
+          }}
+        >
+          {content}
+        </u>
       )
 
     return <span className="text-gray-800">{content}</span>
