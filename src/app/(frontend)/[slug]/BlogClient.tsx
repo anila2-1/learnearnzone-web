@@ -6,7 +6,7 @@ import { useAuth } from '../../../_providers/Auth'
 import Link from 'next/link'
 import RichText from '@/components/RichText'
 import Image from 'next/image'
-import AnimatedBlogCard from './../categories/AnimatedCategoryBlogCard' // 👈 Add this
+import AnimatedBlogCard from '../categories/AnimatedCategoryBlogCard' // 👈 Add this
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 interface Question {

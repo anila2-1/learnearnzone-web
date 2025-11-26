@@ -36,7 +36,7 @@ export const CollectionArchive: React.FC<{ posts: Blog[] }> = ({ posts }) => {
                 <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
                 <Link
                   href={`/${post.slug}`}
-                  className="inline-block px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg"
+                  className="inline-block px-6 py-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg"
                 >
                   Read More →
                 </Link>
