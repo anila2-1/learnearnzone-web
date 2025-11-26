@@ -265,12 +265,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
     const baseHeadingClass = 'font-bold break-words transition-all duration-300'
     const headingStyleMap = {
-      h1: `${baseHeadingClass} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-indigo-700 mb-6 leading-tight border-b-4 border-indigo-500 pb-4 drop-shadow-sm`,
-      h2: `${baseHeadingClass} text-2xl sm:text-3xl md:text-4xl lg:text-4xl text-indigo-600 mb-5 leading-tight border-l-4 border-indigo-500 pl-4`,
-      h3: `${baseHeadingClass} text-xl sm:text-2xl md:text-3xl lg:text-4xl text-indigo-500 mb-4 leading-snug leading-tight border-l-4 border-indigo-500 pl-4`,
-      h4: `${baseHeadingClass} text-lg sm:text-xl md:text-2xl lg:text-3xl text-indigo-400 mb-3 font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
-      h5: `${baseHeadingClass} text-base sm:text-lg md:text-xl lg:text-2xl text-gray-800 mb-2 font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
-      h6: `${baseHeadingClass} text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mb-2 uppercase tracking-wide font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
+      h1: `${baseHeadingClass} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-black mb-6 leading-tight border-b-4 border-indigo-500 pb-4 drop-shadow-sm`,
+      h2: `${baseHeadingClass} text-3xl sm:text-3xl md:text-4xl lg:text-3xl text-black mb-5 leading-tight border-l-4 border-indigo-500 pl-4`,
+      h3: `${baseHeadingClass} text-xl sm:text-2xl md:text-3xl lg:text-3xl text-black mb-4 leading-snug leading-tight border-l-4 border-indigo-500 pl-4`,
+      h4: `${baseHeadingClass} text-lg sm:text-xl md:text-2xl lg:text-2xl text-black mb-3 font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
+      h5: `${baseHeadingClass} text-base sm:text-lg md:text-xl lg:text-xl text-black mb-2 font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
+      h6: `${baseHeadingClass} text-sm sm:text-base md:text-lg lg:text-xl text-black mb-2 uppercase tracking-wide font-semibold leading-tight border-l-4 border-indigo-500 pl-4`,
     }
 
     const className = headingStyleMap[tag as keyof typeof headingStyleMap] || headingStyleMap.h2
@@ -280,48 +280,26 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
     return <HeadingTag className={className}>{children}</HeadingTag>
   },
-
   text: ({ node }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const textNode = node as any
     const text = textNode.text || ''
     const format = textNode.format || 0
 
-    // Build semantic tags for formatting - CHECK IN CORRECT ORDER
+    if (!text) return null
+
     let content: React.ReactNode = text
 
-    // Bold  - MUST CHECK FIRST
+    // Apply formatting in correct order (nesting is fine)
     if (format & 1) {
-      content = (
-        <strong
-          className="font-bold text-gray-950 px-0.5 rounded"
-          style={{
-            fontWeight: 800,
-            display: 'inline',
-          }}
-        >
-          {content}
-        </strong>
-      )
+      // bold
+      content = <strong className="font-bold">{content}</strong>
     }
-
-    // Italic - CHECK SECOND
     if (format & 2) {
-      content = (
-        <em
-          className="italic text-black font-semibold px-0.5 rounded"
-          style={{
-            fontStyle: 'italic',
-            display: 'inline',
-          }}
-        >
-          {content}
-        </em>
-      )
+      // italic
+      content = <em className="italic">{content}</em>
     }
-
-    // Underline (bit 2)
     if (format & 4) {
+      // underline
       content = (
         <del
           style={{
@@ -334,9 +312,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         </del>
       )
     }
-
-    // Strikethrough (bit 3)
     if (format & 8) {
+      // strikethrough
       content = (
         <u
           style={{
@@ -350,18 +327,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       )
     }
 
-    return (
-      <span
-        className="text-gray-800 leading-relaxed"
-        style={{
-          fontFamily: 'inherit',
-          fontSize: 'inherit',
-          lineHeight: 'inherit',
-        }}
-      >
-        {content}
-      </span>
-    )
+    return <span className="text-gray-800 leading-relaxed">{content}</span>
   },
 
   list: ({ node, nodesToJSX }) => {
