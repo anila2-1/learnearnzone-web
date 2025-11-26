@@ -126,24 +126,22 @@
 
 /* ----------- CLEAN BASE ----------- */
 
-.payload-richtext u {
+.payload-richtext u,
+.payload-richtext u * {
   text-decoration: underline !important;
   text-decoration-thickness: 2px !important;
   text-underline-offset: 3px !important;
   text-decoration-color: currentColor !important;
-
-  /* REMOVE border-bottom — it breaks underline */
   border-bottom: none !important;
 }
 
-.payload-richtext del {
+.payload-richtext del,
+.payload-richtext del * {
   text-decoration: line-through !important;
   text-decoration-thickness: 2px !important;
   text-decoration-color: currentColor !important;
-
-  /* REMOVE custom fake underline line */
-  position: static !important;
 }
+
 
 .payload-richtext del::after {
   content: none !important;
