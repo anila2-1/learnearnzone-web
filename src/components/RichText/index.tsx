@@ -280,22 +280,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
     return <HeadingTag className={className}>{children}</HeadingTag>
   },
-  text: ({ node }) => {
-    const textNode = node as any
-    const text = textNode.text || ''
-    const format = textNode.format || 0
 
-    if (!text) return null
-
-    const className = cn(
-      format & 1 ? 'font-bold' : undefined,
-      format & 2 ? 'italic' : undefined,
-      format & 4 ? 'underline underline-offset-2' : undefined,
-      format & 8 ? 'line-through' : undefined
-    )
-
-    return <span className={cn('text-gray-800 leading-relaxed', className)}>{text}</span>
-  },
   list: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
