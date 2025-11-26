@@ -322,9 +322,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     if (format & 4)
       content = (
         <del
-          className="line-through"
+          className=" underline"
           style={{
-            textDecoration: 'line-through',
+            textDecoration: ' underline',
             textDecorationThickness: '2px',
             textDecorationColor: 'currentColor',
           }}
@@ -337,13 +337,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     if (format & 8)
       content = (
         <u
-          className="underline"
+          className="line-through"
           style={{
-            textDecoration: 'underline',
+            textDecoration: 'line-through',
             textDecorationThickness: '2px',
             textUnderlineOffset: '3px',
             textDecorationColor: 'currentColor',
-            borderBottom: '2px solid currentColor',
           }}
         >
           {content}
