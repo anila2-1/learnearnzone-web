@@ -1,6 +1,11 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /auth/
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /withdraw
 
 # Host
 Host: https://learnearnzone.com
