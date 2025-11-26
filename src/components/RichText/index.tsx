@@ -293,8 +293,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     if (format & 1)
       content = (
         <strong
-          className="font-extrabold"
-          style={{ fontWeight: 800, WebkitFontSmoothing: 'antialiased' }}
+          className="font-black !font-black"
+          style={{
+            fontWeight: '900 !important',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+          }}
         >
           {content}
         </strong>
@@ -303,29 +307,39 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     // Italic — include inline style to force italic on all platforms
     if (format & 2)
       content = (
-        <em className="italic" style={{ fontStyle: 'italic' }}>
+        <em
+          className="italic !italic"
+          style={{
+            fontStyle: 'italic !important',
+            WebkitFontSmoothing: 'antialiased',
+          }}
+        >
           {content}
         </em>
       )
 
-    // Strikethrough
-    if (format & 8)
+    // Underline (format & 4)
+    if (format & 4)
       content = (
         <u
+          className="underline"
           style={{
-            textDecoration: 'underline',
+            textDecoration: 'underline !important',
             textDecorationThickness: '1px',
+            textUnderlineOffset: '2px',
           }}
         >
           {content}
         </u>
       )
-    // Underline
-    if (format & 4)
+
+    // Strikethrough (format & 8)
+    if (format & 8)
       content = (
         <del
+          className="line-through"
           style={{
-            textDecoration: 'line-through',
+            textDecoration: 'line-through !important',
             textDecorationThickness: '1px',
           }}
         >

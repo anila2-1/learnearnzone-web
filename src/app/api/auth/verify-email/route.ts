@@ -4,7 +4,7 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import config from '@payload-config'
 import { cookies } from 'next/headers'
 
-const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'https://learnearnzone.com').replace(/\/$/, '')
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '')
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)

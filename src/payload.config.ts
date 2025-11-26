@@ -1,7 +1,6 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb' // database-adapter-import
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { defaultLexical } from '@/fields/defaultLexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 
@@ -26,6 +25,7 @@ import Withdrawals from './collections/Withdrawals'
 import Members from './collections/Members'
 import Pages from './collections/Pages'
 import { Categories } from './collections/Categories'
+import { defaultLexical } from './fields/defaultLexical'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -37,8 +37,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  // 👇 Use the environment variable
-  // serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+
   collections: [Users, Media, Pages, Blogs, Members, Quizzes, Withdrawals, Categories],
   editor: defaultLexical,
 
