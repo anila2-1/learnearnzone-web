@@ -293,7 +293,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     if (format & 1)
       content = (
         <strong
-          className="font-black !font-black"
+          className="font-black"
           style={{
             fontWeight: '900 !important',
             WebkitFontSmoothing: 'antialiased',
@@ -308,7 +308,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     if (format & 2)
       content = (
         <em
-          className="italic !italic"
+          className="italic"
           style={{
             fontStyle: 'italic !important',
             WebkitFontSmoothing: 'antialiased',
@@ -321,30 +321,30 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     // Underline (format & 4)
     if (format & 4)
       content = (
+        <del
+          className="line-through"
+          style={{
+            textDecoration: 'line-through',
+            textDecorationThickness: '1px',
+          }}
+        >
+          {content}
+        </del>
+      )
+
+    // Strikethrough (format & 8)
+    if (format & 8)
+      content = (
         <u
           className="underline"
           style={{
-            textDecoration: 'underline !important',
+            textDecoration: 'underline',
             textDecorationThickness: '1px',
             textUnderlineOffset: '2px',
           }}
         >
           {content}
         </u>
-      )
-
-    // Strikethrough (format & 8)
-    if (format & 8)
-      content = (
-        <del
-          className="line-through"
-          style={{
-            textDecoration: 'line-through !important',
-            textDecorationThickness: '1px',
-          }}
-        >
-          {content}
-        </del>
       )
 
     return <span className="text-gray-800">{content}</span>

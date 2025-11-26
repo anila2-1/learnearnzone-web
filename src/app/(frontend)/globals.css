@@ -124,16 +124,27 @@
   scroll-behavior: smooth;
 }
 
-/* RichText Mobile Formatting Fix */
+/* RichText Mobile Formatting Fix - Aggressive approach */
 .payload-richtext strong {
   font-weight: 900 !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
+  text-shadow: 0.5px 0 0 currentColor, -0.5px 0 0 currentColor !important;
 }
 
 .payload-richtext em {
   font-style: italic !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
   -webkit-font-smoothing: antialiased !important;
+  transform: skew(-12deg) !important;
+  display: inline-block !important;
 }
 
 .payload-richtext u {
@@ -147,17 +158,21 @@
   text-decoration-thickness: 1px !important;
 }
 
-/* Ensure mobile browsers respect formatting */
+/* Mobile-specific overrides */
 @media screen and (max-width: 768px) {
   .payload-richtext strong {
     font-weight: 900 !important;
     font-synthesis: weight !important;
-    -webkit-text-stroke: 0.3px currentColor;
+    -webkit-text-stroke: 0.8px currentColor !important;
+    text-shadow: 1px 0 0 currentColor, -1px 0 0 currentColor, 0 1px 0 currentColor, 0 -1px 0 currentColor !important;
+    letter-spacing: 0.02em !important;
   }
   
   .payload-richtext em {
     font-style: italic !important;
     font-synthesis: style !important;
+    transform: skew(-15deg) !important;
+    letter-spacing: 0.01em !important;
   }
   
   /* Force font rendering for better visibility on mobile */
@@ -166,18 +181,35 @@
     text-rendering: optimizeLegibility !important;
     -webkit-font-feature-settings: "kern" 1 !important;
     font-feature-settings: "kern" 1 !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
   }
 }
 
-/* Additional mobile-specific fixes for iOS Safari */
+/* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
   .payload-richtext strong {
     font-weight: 900 !important;
-    -webkit-text-stroke: 0.2px currentColor !important;
+    -webkit-text-stroke: 1px currentColor !important;
+    text-shadow: 1px 0 0 currentColor, -1px 0 0 currentColor !important;
   }
   
   .payload-richtext em {
     font-style: italic !important;
-    transform: skew(-0.1deg) !important;
+    transform: skew(-15deg) !important;
+    -webkit-transform: skew(-15deg) !important;
+  }
+}
+
+/* Android Chrome specific fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+  .payload-richtext strong {
+    font-weight: 900 !important;
+    text-shadow: 0.5px 0 0 currentColor, -0.5px 0 0 currentColor, 0 0.5px 0 currentColor, 0 -0.5px 0 currentColor !important;
+  }
+  
+  .payload-richtext em {
+    font-style: italic !important;
+    transform: skew(-12deg) !important;
   }
 }
