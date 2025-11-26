@@ -287,49 +287,15 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
 
     if (!text) return null
 
-    let content: React.ReactNode = text
+    const className = cn(
+      format & 1 ? 'font-bold' : undefined,
+      format & 2 ? 'italic' : undefined,
+      format & 4 ? 'underline underline-offset-2' : undefined,
+      format & 8 ? 'line-through' : undefined
+    )
 
-    // Apply formatting in correct order (nesting is fine)
-    if (format & 1) {
-      // bold
-      content = <strong className="font-bold">{content}</strong>
-    }
-    if (format & 2) {
-      // italic
-      content = <em className="italic">{content}</em>
-    }
-    if (format & 4) {
-      // underline
-      content = (
-        <del
-          style={{
-            textDecoration: 'line-through',
-            textDecorationThickness: '2px',
-            opacity: 0.7,
-          }}
-        >
-          {content}
-        </del>
-      )
-    }
-    if (format & 8) {
-      // strikethrough
-      content = (
-        <u
-          style={{
-            textDecoration: 'underline',
-            textDecorationThickness: '2px',
-            textUnderlineOffset: '3px',
-          }}
-        >
-          {content}
-        </u>
-      )
-    }
-
-    return <span className="text-gray-800 leading-relaxed">{content}</span>
+    return <span className={cn('text-gray-800 leading-relaxed', className)}>{text}</span>
   },
-
   list: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
