@@ -4,6 +4,7 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import config from '@payload-config'
 import { cookies } from 'next/headers'
 
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'https://learnearnzone.com').replace(/\/$/, '')
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
@@ -11,7 +12,7 @@ export async function GET(req: NextRequest) {
     const email = searchParams.get('email')
 
     if (!token || !email) {
-      return NextResponse.redirect(new URL('/auth/login?error=Invalid verification link', req.url))
+      return NextResponse.redirect(`${APP_URL}/auth/login?error=Invalid verification link`)
     }
 
     const payload = await getPayloadHMR({ config })
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
     })
 
     if (user.docs.length === 0) {
-      return NextResponse.redirect(new URL('/auth/login?error=Invalid or expired token', req.url))
+      return NextResponse.redirect(`${APP_URL}/auth/login?error=Invalid or expired token`)
     }
 
     const verifiedUser = await payload.update({
@@ -45,13 +46,13 @@ export async function GET(req: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: 7 * 24 * 60 * 60, // 7 days
       path: '/',
     })
 
-    return NextResponse.redirect(new URL('/dashboard', req.url))
+    return NextResponse.redirect(`${APP_URL}/dashboard`)
   } catch (error) {
     console.error('Email verification error:', error)
-    return NextResponse.redirect(new URL('/auth/login?error=Verification failed', req.url))
+    return NextResponse.redirect(`${APP_URL}/auth/login?error=Verification failed`)
   }
 }
