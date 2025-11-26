@@ -1,14 +1,14 @@
 // src/app/sitemap.xml/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 
-// List of static routes
-const staticRoutes = ['', 'blog', 'about', 'contact', 'dashboard', 'withdraw'].map(
+// List of static routes - only public SEO-important pages
+const staticRoutes = ['', 'blog', 'about', 'contact', 'categories'].map(
   (route) => `<url>
     <loc>${process.env.NEXT_PUBLIC_SERVER_URL}/${route}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`,
+  </url>`
 )
 
 // Fetch dynamic blog posts
@@ -22,7 +22,7 @@ async function getBlogRoutes(): Promise<string> {
           'Content-Type': 'application/json',
         },
         next: { revalidate: 3600 }, // Revalidate every hour
-      },
+      }
     )
 
     if (!res.ok) return ''
@@ -37,7 +37,7 @@ async function getBlogRoutes(): Promise<string> {
           <lastmod>${new Date(blog.updatedAt).toISOString().split('T')[0]}</lastmod>
           <changefreq>weekly</changefreq>
           <priority>0.9</priority>
-        </url>`,
+        </url>`
       )
       .join('')
   } catch (error) {
