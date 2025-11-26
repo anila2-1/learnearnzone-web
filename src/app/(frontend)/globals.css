@@ -222,10 +222,11 @@
 /* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
   .payload-richtext strong {
-    font-weight: 900 !important;
-    font-size: 0.93em !important;
-    -webkit-text-stroke: 0.8px currentColor !important;
-    text-shadow: 0.8px 0 0 currentColor, -0.8px 0 0 currentColor !important;
+    font-weight: 800 !important;
+    font-size: inherit !important;
+    -webkit-text-stroke: 0.2px currentColor !important;
+    text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor !important;
+    letter-spacing: 0.03em !important;
   }
   
   .payload-richtext em {
@@ -244,9 +245,10 @@
 /* Android Chrome specific fixes */
 @media screen and (-webkit-min-device-pixel-ratio: 1) {
   .payload-richtext strong {
-    font-weight: 900 !important;
-    font-size: 0.94em !important;
-    text-shadow: 0.4px 0 0 currentColor, -0.4px 0 0 currentColor, 0 0.4px 0 currentColor, 0 -0.4px 0 currentColor !important;
+    font-weight: 800 !important;
+    font-size: inherit !important;
+    text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor !important;
+    letter-spacing: 0.03em !important;
   }
   
   .payload-richtext em {
