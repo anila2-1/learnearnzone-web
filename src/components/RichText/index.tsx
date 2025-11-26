@@ -325,7 +325,8 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
           className="line-through"
           style={{
             textDecoration: 'line-through',
-            textDecorationThickness: '1px',
+            textDecorationThickness: '2px',
+            textDecorationColor: 'currentColor',
           }}
         >
           {content}
@@ -339,8 +340,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
           className="underline"
           style={{
             textDecoration: 'underline',
-            textDecorationThickness: '1px',
-            textUnderlineOffset: '2px',
+            textDecorationThickness: '2px',
+            textUnderlineOffset: '3px',
+            textDecorationColor: 'currentColor',
+            borderBottom: '2px solid currentColor',
           }}
         >
           {content}
