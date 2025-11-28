@@ -25,10 +25,10 @@ export default function AnimatedBlogCard({ post }: { post: any }) {
             className="object-cover transition-transform duration-500 hover:scale-110"
             priority={true}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
         </div>
       )}
-      <div className="flex-grow p-6 flex flex-col">
+      <div className="grow p-6 flex flex-col">
         {post.category && (
           <div className="mb-3">
             <span
@@ -47,7 +47,7 @@ export default function AnimatedBlogCard({ post }: { post: any }) {
         </h2>
         <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
         <div className="mt-auto">
-          <span className="inline-block px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer">
+          <span className="inline-block px-6 py-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer">
             Read More →
           </span>
         </div>

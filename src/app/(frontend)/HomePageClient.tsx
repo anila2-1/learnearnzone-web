@@ -12,7 +12,7 @@ const Footer = dynamic(() => import('./components/Footer'), {
 const LoadingLink = dynamic(() => import('./components/LoadingLink'), {
   ssr: false,
   loading: () => (
-    <button className="px-6 py-3 bg-gray-200 text-gray-500 rounded-lg animate-pulse cursor-wait">
+    <button className="px-6 py-3 homepage-text bg-gray-200 text-gray-500 rounded-lg animate-pulse cursor-wait">
       Loading...
     </button>
   ),
@@ -39,7 +39,7 @@ export default function HomePageClient() {
   }, [])
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className=" homepage-text relative min-h-screen overflow-hidden bg-linear-to-br from-slate-50 via-white to-blue-50">
       {/* Animated Gradient Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Orb 1: Slow pulsing */}
@@ -332,7 +332,7 @@ export default function HomePageClient() {
           >
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Learn, Quiz & Earn Real Rewards
-              <span className="block mt-4 text-lg text-gray-600 font-normal">
+              <span className=" block mt-4 text-lg text-gray-600 font-normal">
                 Master new skills, test your knowledge, and get rewarded.
               </span>
             </h2>
@@ -349,7 +349,7 @@ export default function HomePageClient() {
                     href="/auth/signup"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 text-base"
+                    className="px-8 py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 text-base"
                   >
                     Join Now — It&apos; Free
                   </LoadingLink>
@@ -368,7 +368,7 @@ export default function HomePageClient() {
                   href="/dashboard"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 text-base"
+                  className="px-8 py-4 bg-linear-to-r from-green-500 to-teal-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-200 text-base"
                 >
                   Go to Dashboard
                 </LoadingLink>
@@ -385,15 +385,15 @@ export default function HomePageClient() {
             transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
             className="relative bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 border border-gray-200/40 shadow-xl md:shadow-2xl hover:shadow-2xl md:hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden group"
           >
-            <div className="hidden md:block absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-gradient-to-br from-teal-400/10 to-cyan-400/10 rounded-bl-full -translate-y-8 md:-translate-y-12 translate-x-8 md:translate-x-12 group-hover:translate-x-6 md:group-hover:translate-x-8 group-hover:-translate-y-6 md:group-hover:-translate-y-8 transition-transform duration-500"></div>
-            <div className="hidden md:block absolute bottom-0 left-0 w-24 md:w-32 h-24 md:h-32 bg-gradient-to-tr from-purple-400/10 to-indigo-400/10 rounded-tr-full translate-y-8 md:translate-y-12 -translate-x-8 md:-translate-x-12 group-hover:-translate-x-6 md:group-hover:-translate-x-8 group-hover:translate-y-6 md:group-hover:translate-y-8 transition-transform duration-500"></div>
+            <div className="hidden md:block absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-linear-to-br from-teal-400/10 to-cyan-400/10 rounded-bl-full -translate-y-8 md:-translate-y-12 translate-x-8 md:translate-x-12 group-hover:translate-x-6 md:group-hover:translate-x-8 group-hover:-translate-y-6 md:group-hover:-translate-y-8 transition-transform duration-500"></div>
+            <div className="hidden md:block absolute bottom-0 left-0 w-24 md:w-32 h-24 md:h-32 bg-linear-to-tr from-purple-400/10 to-indigo-400/10 rounded-tr-full translate-y-8 md:translate-y-12 -translate-x-8 md:-translate-x-12 group-hover:-translate-x-6 md:group-hover:-translate-x-8 group-hover:translate-y-6 md:group-hover:translate-y-8 transition-transform duration-500"></div>
 
             <div className="relative z-10 text-center">
               <MotionDiv
                 initial={{ scale: 0.95 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.8, type: 'spring', stiffness: 300 }}
-                className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 bg-gradient-to-r from-teal-500/20 to-cyan-500/20 px-3 sm:px-5 py-2 sm:py-3 rounded-full border border-teal-200/50"
+                className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 bg-linear-to-r from-teal-500/20 to-cyan-500/20 px-3 sm:px-5 py-2 sm:py-3 rounded-full border border-teal-200/50"
               >
                 <span className="text-xl sm:text-2xl">📖</span>
                 <span className="text-xs sm:text-sm font-medium text-gray-700 tracking-wide uppercase">
@@ -403,7 +403,7 @@ export default function HomePageClient() {
 
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 sm:mb-4 leading-tight px-2">
                 Ready to Learn Something{' '}
-                <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
                   New?
                 </span>
               </h3>
@@ -416,7 +416,7 @@ export default function HomePageClient() {
                 href="/blog"
                 whileHover={{ scale: 1.03, boxShadow: '0 20px 40px -10px rgba(32, 211, 200, 0.3)' }}
                 whileTap={{ scale: 0.97 }}
-                className="px-6 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-teal-500 via-cyan-500 to-teal-500 text-white font-bold rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-xl sm:hover:shadow-2xl transform transition-all duration-300 text-base sm:text-lg relative overflow-hidden mx-auto block"
+                className="px-6 sm:px-10 py-4 sm:py-5 bg-linear-to-r from-teal-500 via-cyan-500 to-teal-500 text-white font-bold rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-xl sm:hover:shadow-2xl transform transition-all duration-300 text-base sm:text-lg relative overflow-hidden mx-auto block"
               >
                 <span className="relative z-10 flex items-center justify-center gap-1 sm:gap-2">
                   Explore Blogs Now
