@@ -24,7 +24,13 @@ interface BlogResponse {
   page: number
 }
 
-export default function BlogListClient({ initialPage = 1 }: { initialPage?: number }) {
+export default function BlogListClient({
+  initialPage = 1,
+  showFooter = true,
+}: {
+  initialPage?: number
+  showFooter?: boolean
+}) {
   const [posts, setPosts] = useState<Blog[]>([])
   const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(initialPage)
@@ -36,7 +42,7 @@ export default function BlogListClient({ initialPage = 1 }: { initialPage?: numb
     setError(null)
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/blogs?where[status][equals]=published&sort=-createdAt&page=${page}&limit=6`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/blogs?where[status][equals]=published&sort=-createdAt&page=${page}&limit=6&depth=1`,
         {
           // No caching — fresh data on client
         }
@@ -84,7 +90,7 @@ export default function BlogListClient({ initialPage = 1 }: { initialPage?: numb
   if (error) {
     return (
       <>
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col items-center justify-center p-6 text-center">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-blue-50 flex flex-col items-center justify-center p-6 text-center">
           <div className="text-6xl mb-4">⚠️</div>
           <h3 className="text-2xl font-semibold text-gray-700 mb-2">Oops! Something went wrong.</h3>
           <p className="text-gray-600 mb-6">{error}</p>
@@ -128,7 +134,7 @@ export default function BlogListClient({ initialPage = 1 }: { initialPage?: numb
                   onClick={() => fetchBlogs(page)}
                   className={`px-4 py-2 rounded-lg transition ${
                     page === currentPage
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                      ? 'bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
                       : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                   }`}
                 >
@@ -152,7 +158,7 @@ export default function BlogListClient({ initialPage = 1 }: { initialPage?: numb
           </div>
         )}
       </div>
-      <Footer />
+      {showFooter && <Footer />}
     </>
   )
 }

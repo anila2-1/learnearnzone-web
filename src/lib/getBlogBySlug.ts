@@ -39,7 +39,7 @@ export const getBlogBySlug = cache(async (slug: string): Promise<Blog | null> =>
           'Content-Type': 'application/json',
         },
         next: { tags: ['blog', `blog-${slug}`], revalidate: 60 },
-      },
+      }
     )
 
     if (!res.ok) {

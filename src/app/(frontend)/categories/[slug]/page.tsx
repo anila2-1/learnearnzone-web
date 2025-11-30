@@ -2,9 +2,9 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Footer from './../../components/Footer'
-import Image from 'next/image'
-import Link from 'next/link'
+
 import AnimatedCategoryBlogCard from '../AnimatedCategoryBlogCard' // 👈 Import new client component
+import CategoryHeroSection from './CategoryHeroSection'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -16,7 +16,7 @@ async function getCategory(slug: string) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories?where[slug][equals]=${slug}&depth=1`,
       {
         next: { revalidate: 60 },
-      },
+      }
     )
     if (!res.ok) throw new Error('Failed to fetch category')
     const data = await res.json()
@@ -36,7 +36,7 @@ async function getCategoryBlogs(categoryId: string) {
         headers: {
           'Content-Type': 'application/json',
         },
-      },
+      }
     )
     if (!res.ok) throw new Error('Failed to fetch blogs')
     const data = await res.json()
@@ -75,31 +75,10 @@ export default async function CategoryPage({ params }: PageProps) {
 
   return (
     <>
+      <CategoryHeroSection category={category} />
+
+      {/* Blogs Grid */}
       <div className="container mx-auto px-4 py-16">
-        {/* Category Header */}
-        <div className="mb-12 text-center">
-          {category.featuredImage && (
-            <div className="relative mx-auto mb-8 h-64 w-full max-w-3xl overflow-hidden rounded-2xl">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_SERVER_URL}${category.featuredImage.url}`}
-                alt={category.title}
-                width={800}
-                height={600}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          )}
-
-          <h1 className="text-4xl font-bold mb-4" style={{ color: category.color || '#4F46E5' }}>
-            {category.title}
-          </h1>
-
-          {category.description && (
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">{category.description}</p>
-          )}
-        </div>
-
-        {/* Blogs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog: any) => (
             <AnimatedCategoryBlogCard key={blog.id} post={blog} />

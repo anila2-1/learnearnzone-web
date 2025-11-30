@@ -1,47 +1,66 @@
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+'use client'
+
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Footer from '../components/Footer'
 import Image from 'next/image'
+import CategoriesHeroSection from './CategoriesHeroSection'
 
-async function getCategories() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories?depth=1`, {
-      next: { revalidate: 60 },
-    })
+export default function CategoriesPage() {
+  const [categories, setCategories] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-    if (!res.ok) throw new Error('Failed to fetch categories')
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories?depth=1`)
+        if (!res.ok) throw new Error('Failed to fetch categories')
+        const data = await res.json()
+        console.log('Fetched categories:', data.docs)
+        setCategories(data.docs || [])
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+        setCategories([])
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchCategories()
+  }, [])
 
-    const data = await res.json()
-    return data
-  } catch (error) {
-    console.error('Error fetching categories:', error)
-    return { docs: [] }
+  if (loading) {
+    return (
+      <div className="px-4 sm:px-6 lg:px-8 pb-12">
+        {/* Blog Grid Skeleton - EXACTLY like CategoryLoading */}
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="h-48 bg-gray-200 animate-pulse"></div>
+                <div className="p-6">
+                  <div className="h-6 bg-gray-200 rounded animate-pulse mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-2/3 mb-4"></div>
+                  <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   }
-}
-
-export const metadata: Metadata = {
-  title: 'Categories',
-  description: 'Browse all our learning categories',
-}
-
-export default async function CategoriesPage() {
-  const { docs: categories } = await getCategories()
 
   if (!categories?.length) {
-    return notFound()
+    return <div>No categories found.</div>
   }
 
   return (
     <>
+      <CategoriesHeroSection />
+
       {/* ✅ Main Content */}
       <div className="container mx-auto px-4 py-16">
-        <div className="relative px-4 py-8 sm:py-10 md:py-12 text-center">
-          <h1 className="text-4xl p-2.5 sm:text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 tracking-tight">
-            Categories
-          </h1>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category: any) => (
             <Link
@@ -53,7 +72,10 @@ export default async function CategoriesPage() {
               {category.featuredImage && (
                 <div className="relative h-48 w-full overflow-hidden">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/media/${category.featuredImage.filename}`}
+                    src={
+                      category.featuredImage.url ||
+                      `${process.env.NEXT_PUBLIC_SERVER_URL}/media/${category.featuredImage.filename}`
+                    }
                     alt={category.title}
                     width={800} // Example: 800px wide
                     height={600} // Example: 600px tall

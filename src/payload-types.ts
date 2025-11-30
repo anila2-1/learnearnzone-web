@@ -369,6 +369,7 @@ export interface Media {
 export interface Category {
   id: string;
   title: string;
+  featuredImage?: (string | null) | Media;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1114,6 +1115,7 @@ export interface WithdrawalsSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  featuredImage?: T;
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
