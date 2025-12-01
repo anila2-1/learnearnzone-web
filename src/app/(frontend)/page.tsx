@@ -3,6 +3,7 @@ import { generateMeta } from './../../utilities/generateMeta'
 import HomePageClient2 from './homepage/HomePageClient2'
 import HomePageClient from './homepage/HomePageClient'
 import HomePageClient3 from './homepage/HomePageClient3'
+import HomePageClient4 from './homepage/HomePageClient4'
 
 // ✅ Allowed: top-level export in Server Component
 export async function generateMetadata() {

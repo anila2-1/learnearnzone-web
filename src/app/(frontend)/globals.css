@@ -29,6 +29,19 @@ body {
   animation: gradient-slow 15s ease infinite;
 }
 
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+.animate-floaty {
+  animation: floaty 4s ease-in-out infinite;
+}
+
 
 @keyframes blog-content {
   from { opacity: 0; transform: translateY(20px); }

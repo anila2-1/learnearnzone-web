@@ -67,7 +67,7 @@ export default function HomePageClient() {
         }}
       >
         {/* TOP LIGHT GRADIENT ONLY */}
-        <div className="absolute inset-0 bg-linear-to-b from-white/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-white/90 to-transparent"></div>
 
         {/* Floating Abstract Shapes */}
         <div className="absolute inset-0 pointer-events-none z-10">
