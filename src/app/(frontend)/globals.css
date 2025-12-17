@@ -1,21 +1,15 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "MerriweatherCustom", 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
-  src: url("/fonts/Merriweather_36pt-Bold.woff2") format("woff2");
+  font-family: "MerriweatherCustom", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  src: url("/fonts/merriweather_36pt-Bold.woff2") format("woff2");
 
 }
 
 /* Homepage Merriweather Styles */
 body {
-  font-family: "MerriweatherCustom", 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif ;
+  font-family: "MerriweatherCustom", 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
 }
-
-/* body {
-  font-family: "GeistMonoCustom", monospace;
-}
- */
-
 
 /* Animations */
 @keyframes gradient-slow {

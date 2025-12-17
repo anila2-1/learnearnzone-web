@@ -4,18 +4,18 @@ import { AuthProvider } from '../../_providers/Auth'
 import React, { ReactNode } from 'react'
 import ClientWrapper from './ClientWrapper'
 import './globals.css'
-import { Poppins } from 'next/font/google'
+import { Merriweather } from 'next/font/google'
 
-const poppins = Poppins({
+const merriweather = Merriweather({
   subsets: ['latin'],
   weight: ['400', '600'],
-  variable: '--font-poppins',
+  variable: '--font-merriweather',
 })
 
 export default function FrontendLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans`}>
+      <body className={`${merriweather.variable} font-sans`}>
         <AuthProvider>
           <ClientWrapper>{children}</ClientWrapper>
         </AuthProvider>
