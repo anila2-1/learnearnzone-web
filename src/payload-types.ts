@@ -78,7 +78,6 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    pages: Page;
     blogs: Blog;
     members: Member;
     quizzes: Quiz;
@@ -95,7 +94,6 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
     quizzes: QuizzesSelect<false> | QuizzesSelect<true>;
@@ -223,15 +221,10 @@ export interface CallToActionBlock {
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'blogs';
-                value: string | Blog;
-              } | null);
+          reference?: {
+            relationTo: 'blogs';
+            value: string | Blog;
+          } | null;
           url?: string | null;
           label: string;
           appearance?: ('default' | 'outline') | null;
@@ -242,52 +235,6 @@ export interface CallToActionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: string;
-  /**
-   * Page title is very important for SEO
-   */
-  title: string;
-  /**
-   * URL Unique Identifier (e.g. "about", "contact")
-   */
-  slug: string;
-  /**
-   * Page sections can be arranged using drag & drop
-   */
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  seo?: {
-    /**
-     * Google search results in Title (60 characters tak)
-     */
-    title?: string | null;
-    /**
-     * Meta Description (160 characters tak)
-     */
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -468,15 +415,10 @@ export interface ContentBlock {
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'blogs';
-                value: string | Blog;
-              } | null);
+          reference?: {
+            relationTo: 'blogs';
+            value: string | Blog;
+          } | null;
           url?: string | null;
           label: string;
         };
@@ -856,10 +798,6 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: string | Page;
-      } | null)
-    | ({
         relationTo: 'blogs';
         value: string | Blog;
       } | null)
@@ -982,24 +920,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
- */
-export interface PagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  content?: T;
-  seo?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

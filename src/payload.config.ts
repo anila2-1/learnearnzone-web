@@ -23,7 +23,6 @@ import Blogs from './collections/Blogs'
 import Quizzes from './collections/Quizzes'
 import Withdrawals from './collections/Withdrawals'
 import Members from './collections/Members'
-import Pages from './collections/Pages'
 import { Categories } from './collections/Categories'
 import { defaultLexical } from './fields/defaultLexical'
 
@@ -38,7 +37,7 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media, Pages, Blogs, Members, Quizzes, Withdrawals, Categories],
+  collections: [Users, Media, Blogs, Members, Quizzes, Withdrawals, Categories],
   editor: defaultLexical,
 
   blocks: [Banner, Code, CallToAction, Archive, Content, FormBlock, MediaBlock],

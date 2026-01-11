@@ -35,7 +35,7 @@ export const link = ({
       {
         name: 'reference',
         type: 'relationship',
-        relationTo: ['pages', 'blogs'],
+        relationTo: ['blogs'],
         required: true,
         maxDepth: 1,
         admin: {
