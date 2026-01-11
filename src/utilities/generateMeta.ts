@@ -47,6 +47,11 @@ export const generateMeta = async (args: {
     }
   }
 
+  if (!description) {
+    description =
+      'Engage with interactive quizzes and earn rewards on the Learn & Earn Quiz Platform.'
+  }
+
   const ogImage = hasMeta(doc) ? getImageURL(doc.meta?.image) : undefined
 
   return {

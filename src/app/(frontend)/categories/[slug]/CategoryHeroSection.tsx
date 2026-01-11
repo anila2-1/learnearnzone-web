@@ -72,7 +72,7 @@ export default function CategoryHeroSection({ category }: CategoryHeroSectionPro
           className="max-w-4xl w-full"
         >
           {/* Category Featured Image */}
-          {category.featuredImage && (
+          {/* {category.featuredImage && (
             <div className="relative mx-auto mb-8 h-32 w-32 overflow-hidden rounded-full border-4 border-white shadow-lg">
               <Image
                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}${category.featuredImage.url}`}
@@ -82,7 +82,7 @@ export default function CategoryHeroSection({ category }: CategoryHeroSectionPro
                 className="h-full w-full object-cover"
               />
             </div>
-          )}
+          )} */}
 
           <motion.h2
             className="text-4xl md:text-6xl font-bold mb-6 leading-tight"

@@ -11,7 +11,7 @@ import {
 const Pages: CollectionConfig = {
   slug: 'pages',
   access: {
-    read: () => true, // Sabhi ko read ki ijazat
+    read: () => true, // Public read access
   },
   admin: {
     useAsTitle: 'title',

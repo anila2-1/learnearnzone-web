@@ -5,6 +5,12 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 export default function AnimatedBlogCard({ post }: { post: any }) {
+  // Validate image URL before rendering
+  const imageUrl =
+    post.image?.url && process.env.NEXT_PUBLIC_SERVER_URL
+      ? `${process.env.NEXT_PUBLIC_SERVER_URL}${post.image.url}`
+      : null
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -14,10 +20,10 @@ export default function AnimatedBlogCard({ post }: { post: any }) {
       whileHover={{ y: -10 }}
       className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-200/60 overflow-hidden transition-all duration-300 hover:shadow-2xl h-full flex flex-col"
     >
-      {post.image && (
+      {imageUrl ? (
         <div className="relative h-48 overflow-hidden">
           <Image
-            src={`${process.env.NEXT_PUBLIC_SERVER_URL}${post.image.url}`}
+            src={imageUrl}
             alt={post.title?.toString() || 'Blog Image'}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -27,7 +33,12 @@ export default function AnimatedBlogCard({ post }: { post: any }) {
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
         </div>
+      ) : (
+        <div className="relative h-48 overflow-hidden bg-gray-200 flex items-center justify-center">
+          <span className="text-gray-500 text-sm">No Image Available</span>
+        </div>
       )}
+
       <div className="grow p-6 flex flex-col">
         {post.category && (
           <div className="mb-3">

@@ -19,26 +19,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${process.env.NEXT_PUBLIC_SERVER_URL}${blog.image.url}`
     : `${process.env.NEXT_PUBLIC_SERVER_URL}/api/og?title=${encodeURIComponent(blog.title)}`
 
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/blog/${blog.slug}`
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/${blog.slug}`
 
   return {
     title: blog.seo?.title || blog.title,
     description: blog.seo?.description || blog.excerpt?.substring(0, 160),
-    openGraph: {
-      title: blog.seo?.title || blog.title,
-      description: blog.seo?.description || blog.excerpt?.substring(0, 160),
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: blog.title,
-        },
-      ],
-      url: canonicalUrl,
-      type: 'article',
-      publishedTime: blog.createdAt,
-    },
     twitter: {
       card: 'summary_large_image',
       title: blog.seo?.title || blog.title,

@@ -251,3 +251,20 @@ body {
     text-decoration: line-through !important;
   }
 }
+
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes floatShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.animate-floatShine {
+  animation: floatShine 6s linear infinite;
+}

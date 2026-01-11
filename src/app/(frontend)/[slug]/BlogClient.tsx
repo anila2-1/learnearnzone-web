@@ -224,15 +224,15 @@ export function BlogClient({
              font-extrabold 
              text-transparent bg-clip-text 
              bg-linear-to-r from-blue-800 via-violet-800 to-fuchsia-800
-             text-center leading-snug sm:leading-tight 
-             px-4 py-2"
+             text-left leading-snug sm:leading-tight 
+             px-4 py-1"
       >
         {post!.title}
       </h1>
 
       {/* Category Tag */}
       {category && (
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-0">
           <Link
             href={`/categories/${category.slug}`}
             className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 border border-indigo-200/50 hover:border-indigo-300/70 transition-all duration-300 shadow-sm hover:shadow-md"
@@ -256,6 +256,27 @@ export function BlogClient({
         </div>
       )}
 
+      {/* Blog Content */}
+      <article className=" py-14 px-3 sm:px-4 lg:px-6">
+        {/* Main Card */}
+        <div className="bg-white rounded-2xl p-4 -m-6 sm:p-6 lg:p-10 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200/60">
+          {/* Featured Image */}
+          {typeof post.image === 'object' && post.image?.url && (
+            <div className="w-full max-w-3xl mx-auto mb-8 rounded-3xl overflow-hidden shadow-lg border border-gray-200 bg-white group">
+              <img
+                src={post.image.url}
+                alt={post.title}
+                className="w-full h-[220px] sm:h-80 lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          )}
+
+          {/* Content */}
+          <div className="max-w-3xl mx-auto">
+            <RichText data={post.content} enableGutter={false} />
+          </div>
+        </div>
+      </article>
       {/* Quizzes */}
       {post!.quizzes?.map((quiz) => {
         const state = quizStates![quiz.id] || {
@@ -272,71 +293,165 @@ export function BlogClient({
             key={quiz.id}
             className="mb-8 p-4 sm:p-6 md:p-8 bg-linear-to-br from-white to-indigo-50 border border-indigo-200 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl"
           >
-            {/* Quiz Header */}
-            <div className="flex justify-center items-center mb-6 sm:mb-8">
-              {state.completed ? (
-                <div className="group relative">
-                  <div className="px-5 sm:px-6 py-2.5 sm:py-3 bg-linear-to-r from-green-500 via-emerald-500 to-teal-600 text-white rounded-full text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 sm:gap-3 backdrop-blur-sm border border-white/10">
-                    <svg
-                      className="w-5 h-5 sm:w-6 sm:h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2.5"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Quiz Completed</span>
+            {/* Guest User Notice */}
+            {!user && (
+              <div className="mb-8">
+                <div className="relative overflow-hidden rounded-3xl border border-indigo-200/60 bg-white/70 backdrop-blur-xl shadow-xl">
+                  {/* Glow */}
+                  <div className="absolute -top-24 -right-24 w-72 h-72 bg-indigo-400/20 rounded-full blur-3xl" />
+                  <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl" />
+
+                  <div className="relative p-6 sm:p-8">
+                    <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+                      {/* Icon */}
+                      <div className="relative shrink-0">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-lg">
+                          <svg
+                            className="w-7 h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5s-3 1.343-3 3 1.343 3 3 3z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5.5 20a6.5 6.5 0 0113 0"
+                            />
+                          </svg>
+                        </div>
+                        <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-amber-400 rounded-full ring-4 ring-white animate-pulse" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-extrabold text-gray-900 mb-1">
+                          Unlock the Interactive Quiz
+                        </h3>
+                        <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                          This article includes a short, interactive quiz designed to reinforce what
+                          you just learned. Log in to participate and earn learning rewards.
+                        </p>
+
+                        {/* Trust badges */}
+                        <div className="flex flex-wrap gap-3 mt-3 text-xs font-semibold text-gray-600">
+                          <span className="px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200">
+                            🎯 Skill Based
+                          </span>
+                          <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                            🏆 Earn Rewards
+                          </span>
+                          <span className="px-3 py-1 rounded-full bg-purple-50 border border-purple-200">
+                            ⚡ Takes 2–3 Minutes
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex gap-3 w-full sm:w-auto">
+                        <Link
+                          href="/auth/login"
+                          className="flex-1 sm:flex-none px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold shadow-lg hover:shadow-2xl hover:scale-105 transition-all"
+                        >
+                          Login
+                        </Link>
+                        <Link
+                          href="/auth/signup"
+                          className="flex-1 sm:flex-none px-6 py-3 rounded-xl border-2 border-indigo-300 text-indigo-700 font-bold hover:bg-indigo-50 hover:scale-105 transition-all"
+                        >
+                          Sign Up
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="absolute inset-0 rounded-full border border-green-400/30 animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
                 </div>
-              ) : (
-                <button
-                  onClick={() =>
-                    setQuizStates((prev) => ({
-                      ...prev!,
-                      [quiz.id]: { ...prev![quiz.id], showQuiz: !prev![quiz.id]?.showQuiz },
-                    }))
-                  }
-                  className="group relative px-6 sm:px-8 py-3 sm:py-3.5 bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 sm:gap-3 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-shine"></div>
-                  <svg
-                    className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:rotate-12"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d={state.showQuiz ? 'M6 18L18 6M6 6l12 12' : 'M13 10V3L4 14h7v7l9-11h-7z'}
-                    />
-                  </svg>
-                  <span className="relative z-10">
-                    {state.showQuiz ? 'Hide Quiz' : 'Start Quiz'}
-                  </span>
-                  <style jsx>{`
-                    @keyframes shine {
-                      0% {
-                        transform: translateX(-100%);
-                      }
-                      100% {
-                        transform: translateX(200%);
-                      }
-                    }
-                    .animate-shine {
-                      animation: shine 1.8s ease-in-out infinite;
-                    }
-                  `}</style>
-                </button>
-              )}
-            </div>
+              </div>
+            )}
+
+            {/* Logged-in User Notice */}
+            {user && !state.showQuiz && !state.completed && (
+              <div className="mb-10">
+                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-xl ring-1 ring-indigo-100">
+                  {/* Soft ambient glow */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-200/20 via-transparent to-pink-200/20" />
+
+                  <div className="relative px-6 py-8 sm:px-10 sm:py-10">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      {/* ICON */}
+                      <div className="flex-shrink-0">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white border border-indigo-200 flex items-center justify-center shadow-md">
+                          <svg
+                            className="w-7 h-7 sm:w-8 sm:h-8 text-indigo-600"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.2"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13 10V3L4 14h7v7l9-11h-7z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* CONTENT */}
+                      <div className="flex-1">
+                        <h3 className="text-xl sm:text-2xl font-semibold text-indigo-900 tracking-tight mb-2">
+                          Ready to lock in what you just learned?
+                        </h3>
+
+                        <p className="text-indigo-700/90 text-sm sm:text-base leading-relaxed max-w-2xl">
+                          You’ve finished the article—now test your understanding with a quick,
+                          friendly quiz. Just a minute or two, and you’ll earn points right away.
+                        </p>
+
+                        {/* TAGS */}
+                        <div className="flex flex-wrap gap-2.5 mt-4">
+                          <span className="px-3 py-1.5 text-xs font-medium rounded-full bg-indigo-100 text-indigo-800">
+                            ⏱ 2-minute quiz
+                          </span>
+                          <span className="px-3 py-1.5 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
+                            🎁 Instant points
+                          </span>
+                          <span className="px-3 py-1.5 text-xs font-medium rounded-full bg-pink-100 text-pink-800">
+                            📈 Track your growth
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* CTA */}
+                      <div className="w-full sm:w-auto mt-4 sm:mt-0">
+                        <button
+                          onClick={() =>
+                            setQuizStates((prev) => ({
+                              ...prev!,
+                              [quiz.id]: {
+                                ...prev![quiz.id],
+                                showQuiz: true,
+                              },
+                            }))
+                          }
+                          className="w-full sm:w-auto px-8 py-3 rounded-xl
+                         bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600
+                         text-white font-semibold shadow-lg
+                         hover:shadow-2xl hover:scale-[1.03]
+                         active:scale-95 transition-all duration-300"
+                        >
+                          Start Quiz
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Quiz Flow */}
             {state.showQuiz && !state.completed && (
@@ -583,28 +698,6 @@ export function BlogClient({
           </div>
         )
       })}
-
-      {/* Blog Content */}
-      <article className=" py-14 px-3 sm:px-4 lg:px-6">
-        {/* Main Card */}
-        <div className="bg-white rounded-2xl p-4 -m-6 sm:p-6 lg:p-10 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200/60">
-          {/* Featured Image */}
-          {typeof post.image === 'object' && post.image?.url && (
-            <div className="w-full max-w-3xl mx-auto mb-8 rounded-3xl overflow-hidden shadow-lg border border-gray-200 bg-white group">
-              <img
-                src={post.image.url}
-                alt={post.title}
-                className="w-full h-[220px] sm:h-80 lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-          )}
-
-          {/* Content */}
-          <div className="max-w-3xl mx-auto">
-            <RichText data={post.content} enableGutter={false} />
-          </div>
-        </div>
-      </article>
 
       {/* RELATED POSTS SECTION */}
       {category && (

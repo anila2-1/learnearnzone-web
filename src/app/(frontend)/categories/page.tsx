@@ -52,7 +52,23 @@ export default function CategoriesPage() {
   }
 
   if (!categories?.length) {
-    return <div>No categories found.</div>
+    return (
+      <>
+        <CategoriesHeroSection />
+
+        <div className="container mx-auto px-6 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="col-span-full text-center py-16">
+              <div className="text-6xl mb-4">📂</div>
+              <h3 className="text-2xl font-semibold text-gray-700">No categories available</h3>
+              <p className="text-gray-500 mt-2">Categories will appear here once they are added.</p>
+            </div>
+          </div>
+        </div>
+
+        <Footer />
+      </>
+    )
   }
 
   return (

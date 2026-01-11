@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import BlogSection from '../blogsection/BlogSection'
-import page from './../categories/page'
 
 // Code-split heavy components
 const Footer = dynamic(() => import('../components/Footer'), {

@@ -11,5 +11,5 @@ export async function generateMetadata() {
 }
 
 export default function HomePage() {
-  return <HomePageClient />
+  return <HomePageClient3 />
 }
