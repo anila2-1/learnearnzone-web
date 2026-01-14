@@ -50,12 +50,16 @@ const Footer = () => {
             {/* Quick Links */}
             <div className="space-y-5">
               <h3 className="text-lg font-semibold text-gray-800 tracking-wide">Quick Links</h3>
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-2 gap-4">
                 {[
                   { href: '/blog', label: 'Blogs' },
-                  { href: '/dashboard', label: 'Dashboard' },
+                  { href: '/about-us', label: 'About Us' },
+
                   { href: '/categories', label: 'Category' },
-                  // { href: '/contact', label: 'Contact' },
+                  { href: '/contact-us', label: 'Contact Us' },
+                  { href: '/dashboard', label: 'Dashboard' },
+
+                  { href: '/privacy-policy', label: 'Privacy Policy' },
                 ].map((link, idx) => (
                   <li key={idx}>
                     <Link
@@ -79,7 +83,7 @@ const Footer = () => {
               <div className="flex space-x-4">
                 {[
                   {
-                    href: 'https://github.com/anila2-1/quiz-learn-web',
+                    href: 'https://github.com/',
                     icon: <FaGithub size={20} />,
                     bg: 'bg-gray-100 hover:bg-gray-200',
                     colors: 'from-gray-800 via-gray-900 to-black',
