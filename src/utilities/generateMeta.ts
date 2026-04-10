@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { Media, Page, Blog } from '../payload-types'
+import type { Media, Blog } from '../payload-types'
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
@@ -27,9 +27,7 @@ const getImageURL = (image?: Media | string | null) => {
   return url
 }
 
-export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Blog> | null
-}): Promise<Metadata> => {
+export const generateMeta = async (args: { doc: Partial<Blog> | null }): Promise<Metadata> => {
   const { doc } = args
 
   const baseTitle = 'Learn & Earn Quiz Platform'
